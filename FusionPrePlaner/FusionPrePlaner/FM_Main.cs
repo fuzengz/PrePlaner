@@ -7,7 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Data.SqlClient;
+using System.Net;
+using System.IO;
+using System.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace FusionPrePlaner
 {
     public partial class FM_Main : Form
@@ -23,6 +28,9 @@ namespace FusionPrePlaner
             this.chkAutoRun.DataBindings.Add("Checked", Config.Instance, "AutoRun", false, DataSourceUpdateMode.Never);
             this.chkRunOnStart.DataBindings.Add("Checked", Config.Instance, "RunOnStart", false, DataSourceUpdateMode.Never);
 
+            this.txtRestApiPath.DataBindings.Add("Text", Config.Instance, "RestApi_Path", false, DataSourceUpdateMode.Never);
+            this.txtUserName.DataBindings.Add("Text", Config.Instance, "UserName", false, DataSourceUpdateMode.Never);
+            this.txtUserPassword.DataBindings.Add("Text", Config.Instance, "Password", false, DataSourceUpdateMode.Never);
             curAutoRunStat = Config.Instance.AutoRun;
 
 
@@ -98,10 +106,10 @@ namespace FusionPrePlaner
             {
                 dt_NextRun = DateTime.Now.AddMinutes(Config.Instance.PrePlanInterval);
             }
-            
+
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void btnRunConfigApply_Click(object sender, EventArgs e)
         {
             try
             {
@@ -114,20 +122,54 @@ namespace FusionPrePlaner
             {
                 MessageBox.Show(exp.Message, "Apply Configuration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.btnApply.Enabled = txtInterval.Text.ToString().Trim() != Config.Instance.PrePlanInterval.ToString();
-            this.btnCancel.Enabled = this.btnApply.Enabled;
+            this.btnRunConfigApply.Enabled = txtInterval.Text.Trim() != Config.Instance.PrePlanInterval.ToString();
+            this.btnRunConfigCancel.Enabled = this.btnRunConfigApply.Enabled;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnRunConfigCancel_Click(object sender, EventArgs e)
         {
             chkAutoRun.Checked = Config.Instance.AutoRun;
             txtInterval.Text = Config.Instance.PrePlanInterval.ToString();
 
-            this.btnApply.Enabled = txtInterval.Text.ToString().Trim() != Config.Instance.PrePlanInterval.ToString();
-            this.btnCancel.Enabled = this.btnApply.Enabled;
+            this.btnRunConfigApply.Enabled = txtInterval.Text.Trim() != Config.Instance.PrePlanInterval.ToString();
+            this.btnRunConfigCancel.Enabled = this.btnRunConfigApply.Enabled;
         }
 
-        private void Config_Changed(object sender, EventArgs e)
+       
+        private void btnRestApiConfigApply_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Config.Instance.RestApi_Path = txtRestApiPath.Text.Trim();
+                Config.Instance.UserName = txtUserName.Text.Trim();
+                Config.Instance.Password = txtUserPassword.Text.Trim();
+                Config.Serialize(Config.Instance);
+            }
+            catch (System.Exception exp)
+            {
+                MessageBox.Show(exp.Message, "Apply Configuration Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.btnRestApiConfigApply.Enabled = (!string.IsNullOrEmpty(txtUserName.Text.Trim()) && !string.IsNullOrEmpty(txtUserName.Text.Trim()) && !string.IsNullOrEmpty(txtUserName.Text.Trim()))
+                                                 && (txtRestApiPath.Text.Trim() != Config.Instance.RestApi_Path.ToString()
+                                                 || txtUserName.Text.Trim() != Config.Instance.UserName.ToString()
+                                                 || txtUserPassword.Text.Trim() != Config.Instance.Password.ToString());
+            this.btnRestApiConfigCancel.Enabled = this.btnRestApiConfigApply.Enabled;
+        }
+        private void btnRestApiConfigCancel_Click(object sender, EventArgs e)
+        {
+
+            txtRestApiPath.Text = Config.Instance.RestApi_Path.ToString();
+            txtUserName.Text = Config.Instance.UserName.ToString();
+            txtUserPassword.Text = Config.Instance.Password.ToString();
+
+
+            this.btnRestApiConfigApply.Enabled = (!string.IsNullOrEmpty(txtUserName.Text.Trim()) && !string.IsNullOrEmpty(txtUserName.Text.Trim()) && !string.IsNullOrEmpty(txtUserName.Text.Trim()))
+                                                 && (txtRestApiPath.Text.Trim() != Config.Instance.RestApi_Path.ToString()
+                                                 || txtUserName.Text.Trim() != Config.Instance.UserName.ToString()
+                                                 || txtUserPassword.Text.Trim() != Config.Instance.Password.ToString());
+            this.btnRestApiConfigCancel.Enabled = this.btnRestApiConfigApply.Enabled;
+        }
+        private void RunConfig_Changed(object sender, EventArgs e)
         {
             int parsedSec;
             if (int.TryParse(txtInterval.Text, out parsedSec) && parsedSec > 0)
@@ -141,12 +183,32 @@ namespace FusionPrePlaner
 
 
             }
-            this.btnApply.Enabled = (parsedSec > 0) && (txtInterval.Text.ToString().Trim() != Config.Instance.PrePlanInterval.ToString()
+            this.btnRunConfigApply.Enabled = (parsedSec > 0) && (txtInterval.Text.Trim() != Config.Instance.PrePlanInterval.ToString()
                                      || chkAutoRun.Checked != Config.Instance.AutoRun || chkRunOnStart.Checked != Config.Instance.RunOnStart);
-            this.btnCancel.Enabled = this.btnApply.Enabled;
+            this.btnRunConfigCancel.Enabled = this.btnRunConfigApply.Enabled;
+        }
+        private void RestAPIConfig_Changed(object sender, EventArgs e)
+        {
+            var txtbox = sender as TextBox;
+            if (string.IsNullOrEmpty(txtbox.Text.Trim())
+                
+                )
+            {
+                errProviderConfig.SetError(txtbox, "Can not be empty");
+
+            }
+            else
+            {
+                errProviderConfig.SetError(txtbox, null);
+            }
+
+            this.btnRestApiConfigApply.Enabled = txtRestApiPath.Text.Trim() != Config.Instance.RestApi_Path.ToString()
+                                                || txtUserName.Text.Trim() != Config.Instance.UserName.ToString()
+                                                || txtUserPassword.Text.Trim() != Config.Instance.Password.ToString();
+            this.btnRestApiConfigCancel.Enabled = this.btnRestApiConfigApply.Enabled;
         }
 
-        
+
 
         private void timer1Sec_Tick(object sender, EventArgs e)
         {
@@ -172,5 +234,48 @@ namespace FusionPrePlaner
             }
             curAutoRunStat = Config.Instance.AutoRun;
         }
+        
+        private void btnTestConn_Click(object sender, EventArgs e)
+        {
+
+            string res = RestAPIAccess.ExecuteRestAPI_CURL(txtUserName.Text.Trim(), txtUserPassword.Text.Trim(), txtRestApiPath.Text.Trim(), "GET", "search");
+            
+            try
+            {
+                JObject.Parse(res);
+                MessageBox.Show("Test OK");
+            }
+            catch
+            {
+                MessageBox.Show("Test Failed");
+            }
+
+          
+
+        }
+
+       
+
+        /*
+        private void btnTestConn_Click(object sender, EventArgs e)
+        {
+            //login
+
+            var req = HttpWebRequest.Create("https://jiradc.int.net.nokia.com/rest/api/latest/search?jql=cf[29790]=1312");
+            // var req = HttpWebRequest.Create(@"https://jiradc.int.net.nokia.com/rest/api/latest/issue/FCA_FZAP-2645");
+            // var req = HttpWebRequest.Create(@"https://jiradc.int.net.nokia.com/rest/api/latest/search");
+            req.Method = "GET";
+            req.Credentials = new NetworkCredential("fuzengz", "Password9$");
+            using (WebResponse wr = req.GetResponse())
+            {
+                StreamReader reader = new StreamReader(wr.GetResponseStream());
+
+                // Console application output  
+                Console.WriteLine(reader.ReadToEnd());
+            }
+
+
+        }
+        */
     }
 }

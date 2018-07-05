@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tp_main = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -56,11 +56,21 @@
             this.btnRunAll = new System.Windows.Forms.Button();
             this.txtNextRunDt = new System.Windows.Forms.TextBox();
             this.tp_config = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnRestApiConfigCancel = new System.Windows.Forms.Button();
+            this.btnRestApiConfigApply = new System.Windows.Forms.Button();
+            this.btnTestConn = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtUserPassword = new System.Windows.Forms.TextBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
+            this.txtRestApiPath = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.chkRunOnStart = new System.Windows.Forms.CheckBox();
             this.chkAutoRun = new System.Windows.Forms.CheckBox();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnApply = new System.Windows.Forms.Button();
+            this.btnRunConfigCancel = new System.Windows.Forms.Button();
+            this.btnRunConfigApply = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtInterval = new System.Windows.Forms.TextBox();
@@ -79,6 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.tp_config.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).BeginInit();
             this.SuspendLayout();
@@ -229,9 +240,9 @@
             // col_Preplan
             // 
             this.col_Preplan.DataPropertyName = "Str_Run_Stat";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "Run";
-            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = "Run";
+            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_Preplan.HeaderText = "Run";
             this.col_Preplan.Name = "col_Preplan";
             this.col_Preplan.ReadOnly = true;
@@ -368,30 +379,135 @@
             // 
             // tp_config
             // 
+            this.tp_config.Controls.Add(this.groupBox6);
             this.tp_config.Controls.Add(this.groupBox5);
             this.tp_config.Location = new System.Drawing.Point(4, 22);
             this.tp_config.Name = "tp_config";
             this.tp_config.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_config.Size = new System.Drawing.Size(1189, 640);
+            this.tp_config.Size = new System.Drawing.Size(1186, 776);
             this.tp_config.TabIndex = 1;
             this.tp_config.Text = "Configuration";
             this.tp_config.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnRestApiConfigCancel);
+            this.groupBox6.Controls.Add(this.btnRestApiConfigApply);
+            this.groupBox6.Controls.Add(this.btnTestConn);
+            this.groupBox6.Controls.Add(this.label5);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Controls.Add(this.txtUserPassword);
+            this.groupBox6.Controls.Add(this.txtUserName);
+            this.groupBox6.Controls.Add(this.txtRestApiPath);
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Location = new System.Drawing.Point(8, 118);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(637, 161);
+            this.groupBox6.TabIndex = 15;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "REST API Configuration";
+            // 
+            // btnRestApiConfigCancel
+            // 
+            this.btnRestApiConfigCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnRestApiConfigCancel.Enabled = false;
+            this.btnRestApiConfigCancel.Location = new System.Drawing.Point(539, 120);
+            this.btnRestApiConfigCancel.Name = "btnRestApiConfigCancel";
+            this.btnRestApiConfigCancel.Size = new System.Drawing.Size(75, 25);
+            this.btnRestApiConfigCancel.TabIndex = 17;
+            this.btnRestApiConfigCancel.Text = "Cancel";
+            this.btnRestApiConfigCancel.UseVisualStyleBackColor = true;
+            this.btnRestApiConfigCancel.Click += new System.EventHandler(this.btnRestApiConfigCancel_Click);
+            // 
+            // btnRestApiConfigApply
+            // 
+            this.btnRestApiConfigApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnRestApiConfigApply.Enabled = false;
+            this.btnRestApiConfigApply.Location = new System.Drawing.Point(458, 120);
+            this.btnRestApiConfigApply.Name = "btnRestApiConfigApply";
+            this.btnRestApiConfigApply.Size = new System.Drawing.Size(75, 25);
+            this.btnRestApiConfigApply.TabIndex = 16;
+            this.btnRestApiConfigApply.Text = "Apply";
+            this.btnRestApiConfigApply.UseVisualStyleBackColor = true;
+            this.btnRestApiConfigApply.Click += new System.EventHandler(this.btnRestApiConfigApply_Click);
+            // 
+            // btnTestConn
+            // 
+            this.btnTestConn.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnTestConn.Location = new System.Drawing.Point(458, 28);
+            this.btnTestConn.Name = "btnTestConn";
+            this.btnTestConn.Size = new System.Drawing.Size(156, 25);
+            this.btnTestConn.TabIndex = 15;
+            this.btnTestConn.Text = "Test Connection";
+            this.btnTestConn.UseVisualStyleBackColor = true;
+            this.btnTestConn.Click += new System.EventHandler(this.btnTestConn_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "REST API Path";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 89);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Password";
+            // 
+            // txtUserPassword
+            // 
+            this.txtUserPassword.Location = new System.Drawing.Point(106, 86);
+            this.txtUserPassword.Name = "txtUserPassword";
+            this.txtUserPassword.Size = new System.Drawing.Size(241, 20);
+            this.txtUserPassword.TabIndex = 13;
+            this.txtUserPassword.TextChanged += new System.EventHandler(this.RestAPIConfig_Changed);
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(106, 60);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(241, 20);
+            this.txtUserName.TabIndex = 11;
+            this.txtUserName.TextChanged += new System.EventHandler(this.RestAPIConfig_Changed);
+            // 
+            // txtRestApiPath
+            // 
+            this.txtRestApiPath.Location = new System.Drawing.Point(106, 33);
+            this.txtRestApiPath.Name = "txtRestApiPath";
+            this.txtRestApiPath.Size = new System.Drawing.Size(241, 20);
+            this.txtRestApiPath.TabIndex = 7;
+            this.txtRestApiPath.TextChanged += new System.EventHandler(this.RestAPIConfig_Changed);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(18, 63);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "User ID";
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.chkRunOnStart);
             this.groupBox5.Controls.Add(this.chkAutoRun);
-            this.groupBox5.Controls.Add(this.btnCancel);
-            this.groupBox5.Controls.Add(this.btnApply);
+            this.groupBox5.Controls.Add(this.btnRunConfigCancel);
+            this.groupBox5.Controls.Add(this.btnRunConfigApply);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.txtInterval);
             this.groupBox5.Location = new System.Drawing.Point(8, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(630, 143);
+            this.groupBox5.Size = new System.Drawing.Size(637, 106);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Configuration Parameters";
+            this.groupBox5.Text = "Run Configuration";
             // 
             // chkRunOnStart
             // 
@@ -402,7 +518,7 @@
             this.chkRunOnStart.TabIndex = 6;
             this.chkRunOnStart.Text = "Run on Start";
             this.chkRunOnStart.UseVisualStyleBackColor = true;
-            this.chkRunOnStart.CheckedChanged += new System.EventHandler(this.Config_Changed);
+            this.chkRunOnStart.CheckedChanged += new System.EventHandler(this.RunConfig_Changed);
             // 
             // chkAutoRun
             // 
@@ -413,31 +529,31 @@
             this.chkAutoRun.TabIndex = 5;
             this.chkAutoRun.Text = "Auto Run";
             this.chkAutoRun.UseVisualStyleBackColor = true;
-            this.chkAutoRun.CheckedChanged += new System.EventHandler(this.Config_Changed);
+            this.chkAutoRun.CheckedChanged += new System.EventHandler(this.RunConfig_Changed);
             // 
-            // btnCancel
+            // btnRunConfigCancel
             // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Enabled = false;
-            this.btnCancel.Location = new System.Drawing.Point(529, 97);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 25);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnRunConfigCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnRunConfigCancel.Enabled = false;
+            this.btnRunConfigCancel.Location = new System.Drawing.Point(539, 69);
+            this.btnRunConfigCancel.Name = "btnRunConfigCancel";
+            this.btnRunConfigCancel.Size = new System.Drawing.Size(75, 25);
+            this.btnRunConfigCancel.TabIndex = 4;
+            this.btnRunConfigCancel.Text = "Cancel";
+            this.btnRunConfigCancel.UseVisualStyleBackColor = true;
+            this.btnRunConfigCancel.Click += new System.EventHandler(this.btnRunConfigCancel_Click);
             // 
-            // btnApply
+            // btnRunConfigApply
             // 
-            this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Enabled = false;
-            this.btnApply.Location = new System.Drawing.Point(448, 97);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 25);
-            this.btnApply.TabIndex = 3;
-            this.btnApply.Text = "Apply";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            this.btnRunConfigApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnRunConfigApply.Enabled = false;
+            this.btnRunConfigApply.Location = new System.Drawing.Point(458, 69);
+            this.btnRunConfigApply.Name = "btnRunConfigApply";
+            this.btnRunConfigApply.Size = new System.Drawing.Size(75, 25);
+            this.btnRunConfigApply.TabIndex = 3;
+            this.btnRunConfigApply.Text = "Apply";
+            this.btnRunConfigApply.UseVisualStyleBackColor = true;
+            this.btnRunConfigApply.Click += new System.EventHandler(this.btnRunConfigApply_Click);
             // 
             // label2
             // 
@@ -463,7 +579,7 @@
             this.txtInterval.Name = "txtInterval";
             this.txtInterval.Size = new System.Drawing.Size(100, 20);
             this.txtInterval.TabIndex = 0;
-            this.txtInterval.TextChanged += new System.EventHandler(this.Config_Changed);
+            this.txtInterval.TextChanged += new System.EventHandler(this.RunConfig_Changed);
             // 
             // errProviderConfig
             // 
@@ -498,6 +614,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tp_config.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).EndInit();
@@ -532,8 +650,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtInterval;
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.Button btnRunConfigCancel;
+        private System.Windows.Forms.Button btnRunConfigApply;
         private System.Windows.Forms.ErrorProvider errProviderConfig;
         private System.Windows.Forms.TextBox txtNextRunDt;
         private System.Windows.Forms.CheckBox chkAutoRun;
@@ -543,6 +661,16 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCountDown;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnTestConn;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtUserPassword;
+        private System.Windows.Forms.TextBox txtUserName;
+        private System.Windows.Forms.TextBox txtRestApiPath;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnRestApiConfigCancel;
+        private System.Windows.Forms.Button btnRestApiConfigApply;
     }
 }
 
