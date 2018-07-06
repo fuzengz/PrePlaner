@@ -238,8 +238,8 @@ namespace FusionPrePlaner
         private void btnTestConn_Click(object sender, EventArgs e)
         {
 
-            string res = RestAPIAccess.ExecuteRestAPI_CURL(txtUserName.Text.Trim(), txtUserPassword.Text.Trim(), txtRestApiPath.Text.Trim(), "GET", "search");
-            
+             string res = RestAPIAccess.ExecuteRestAPI_CURL(txtUserName.Text.Trim(), txtUserPassword.Text.Trim(), txtRestApiPath.Text.Trim(), "GET", "search");
+           // string res = RestAPIAccess.ExecuteRestAPI( "GET", "search");
             try
             {
                 JObject.Parse(res);

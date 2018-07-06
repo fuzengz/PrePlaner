@@ -1,12 +1,12 @@
 HTTP/1.1 404 
-X-AREQUESTID: 711x15885231x16
-X-ANODEID: node1
+X-AREQUESTID: 797x19589546x10
+X-ANODEID: node3
 X-ASEN: SEN-L11778670
-Set-Cookie: atlassian.xsrf.token=B4X9-2LAQ-OQYC-JH8K|34fe6588e2efb459f5e6fe68e7bb26ec42449516|lout;path=/
+Set-Cookie: atlassian.xsrf.token=B4X9-2LAQ-OQYC-JH8K|b55166d55c3c1394f8cd96f5f285d7fe6e1c0e84|lout;path=/
 X-AUSERNAME: anonymous
+Cache-Control: no-cache, no-store, no-transform
 X-Content-Type-Options: nosniff
-Set-Cookie: JSESSIONID=node1~00F341137E320A327BEB78D15AC923AD;path=/;HttpOnly
-Content-Type: text/html;charset=UTF-8
-Content-Length: 2782
-Date: Thu, 05 Jul 2018 08:51:06 GMT
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Thu, 05 Jul 2018 10:17:10 GMT
 
