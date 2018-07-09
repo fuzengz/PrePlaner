@@ -237,20 +237,28 @@ namespace FusionPrePlaner
         
         private void btnTestConn_Click(object sender, EventArgs e)
         {
+    
+            string res = RestAPIAccess.ExecuteRestAPI_CURL(txtUserName.Text.Trim(), txtUserPassword.Text.Trim(), txtRestApiPath.Text.Trim(), "GET", "search?jql=cf[29790]=1312&startAt=0&maxResults=3");
 
-             string res = RestAPIAccess.ExecuteRestAPI_CURL(txtUserName.Text.Trim(), txtUserPassword.Text.Trim(), txtRestApiPath.Text.Trim(), "GET", "search");
-           // string res = RestAPIAccess.ExecuteRestAPI( "GET", "search");
             try
             {
-                JObject.Parse(res);
-                MessageBox.Show("Test OK");
+                var jobj =JObject.Parse(res);
+                int issuecount = 0;
+                
+                if(int.TryParse(jobj["total"].ToString(), out issuecount) && issuecount>0)
+                {
+                    MessageBox.Show("Test OK");
+                }              
+                else
+                {
+                    MessageBox.Show("Test Failed");
+                }
+                    
             }
             catch
             {
                 MessageBox.Show("Test Failed");
             }
-
-          
 
         }
 

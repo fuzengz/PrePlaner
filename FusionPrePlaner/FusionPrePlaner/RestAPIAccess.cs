@@ -18,7 +18,7 @@ namespace FusionPrePlaner
 
             p.StartInfo = new ProcessStartInfo();
             p.StartInfo.FileName = System.Environment.CurrentDirectory + "\\curl\\curl.exe";         
-            p.StartInfo.Arguments = string.Format("curl -D -u {0}:{1} -X {2} -H \"Content-Type: application/json\" {3}{4}",username,password, opType, restApi_Url, cmd);
+            p.StartInfo.Arguments = string.Format("curl -u {0}:{1} -X {2} -H \"Content-Type: application/json\" \"{3}{4}\"",username,password, opType, restApi_Url, cmd);
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
@@ -34,6 +34,37 @@ namespace FusionPrePlaner
             }
             string resaultValue = p.StandardOutput.ReadToEnd();
             
+            p.WaitForExit();
+            p.Close();
+            return resaultValue;
+
+        }
+
+
+        public static string ExecuteRestAPI_CURL_POST(string username, string password, string restApi_Url, string cmd, string jsonstring)
+        {
+            Process p = new Process();
+            string url = Config.Instance.RestApi_Path;
+
+
+            p.StartInfo = new ProcessStartInfo();
+            p.StartInfo.FileName = System.Environment.CurrentDirectory + "\\curl\\curl.exe";
+        //    p.StartInfo.Arguments = string.Format("curl  -D- -u {0}:{1} -X POST -H 'Content-Type: application/json'  --data {2} --url '{3}{4}'", username, password, jsonstring, restApi_Url,cmd);
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+
+
+            try
+            {
+                p.Start();
+            }
+            catch (System.Exception exp)
+            {
+                return p.StandardError.ReadToEnd();
+            }
+            string resaultValue = p.StandardOutput.ReadToEnd();
+
             p.WaitForExit();
             p.Close();
             return resaultValue;

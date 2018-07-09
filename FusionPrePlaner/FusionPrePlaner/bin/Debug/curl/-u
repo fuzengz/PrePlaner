@@ -1,12 +1,12 @@
 HTTP/1.1 200 
-X-AREQUESTID: 723x20631989x13
+X-AREQUESTID: 725x20634370x10
 X-ANODEID: node3
 X-ASEN: SEN-L11778670
-Set-Cookie: atlassian.xsrf.token=B4X9-2LAQ-OQYC-JH8K|45e6361921ecc681c195b1d28e88654ee3308516|lout;path=/
+Set-Cookie: atlassian.xsrf.token=B4X9-2LAQ-OQYC-JH8K|ae496011dd9b7fcec1230b1f21c72b57ada4b0e8|lout;path=/
 X-AUSERNAME: anonymous
 Cache-Control: no-cache, no-store, no-transform
 X-Content-Type-Options: nosniff
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Fri, 06 Jul 2018 09:03:40 GMT
+Date: Fri, 06 Jul 2018 09:05:09 GMT
 
