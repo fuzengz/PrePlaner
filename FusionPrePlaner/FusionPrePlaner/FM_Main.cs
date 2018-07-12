@@ -20,13 +20,13 @@ namespace FusionPrePlaner
         DateTime dt_NextRun;
         private bool curAutoRunStat = false;
 
-        private static List<PrePlanner> _prePlannerList;
+        //private static List<PrePlanner> _prePlannerList;
 
         public FM_Main()
         {
             InitializeComponent();
             this.dgv_STO.DataSource = ScrumTeamOwner.STO_FULL_LIST;
-
+            
             this.txtInterval.DataBindings.Add("Text", Config.Instance, "PrePlanInterval", false, DataSourceUpdateMode.Never);
             this.chkAutoRun.DataBindings.Add("Checked", Config.Instance, "AutoRun", false, DataSourceUpdateMode.Never);
             this.chkRunOnStart.DataBindings.Add("Checked", Config.Instance, "RunOnStart", false, DataSourceUpdateMode.Never);
@@ -36,18 +36,7 @@ namespace FusionPrePlaner
             this.txtUserPassword.DataBindings.Add("Text", Config.Instance, "Password", false, DataSourceUpdateMode.Never);
             curAutoRunStat = Config.Instance.AutoRun;
 
-            /*
-
-            _prePlannerList = new List<PrePlanner>();
-            foreach (var sto in ScrumTeamOwner.STO_FULL_LIST)
-            {
-               // if (sto.Selected && sto.Run_Stat == STO_RUN_STAT.TO_RUN)
-                {
-                    _prePlannerList.Add(new PrePlanner(sto));
-
-                }
-            }
-            */
+         
 
         }
 
@@ -58,36 +47,41 @@ namespace FusionPrePlaner
             this.dgv_STO.Invalidate();
         }
 
-        public delegate void RefreshUIDele();
-        public void RefreshUI()
+        public delegate void RefreshUIDgvSTODele();
+        public void RefreshUIDgvSTO()
         {
             if(this.InvokeRequired)
             {
-                this.BeginInvoke(new RefreshUIDele(RefreshUI),null);
+                this.BeginInvoke(new RefreshUIDgvSTODele(RefreshUIDgvSTO),null);
             }
             else
             {
-                dgv_STO.Invalidate();
-                //RefreshDgvAvailIssues();
-                //dgAvailIssues.Invalidate();
-               
+              
+                CurrencyManager cm = dgv_STO.BindingContext[dgv_STO.DataSource] as CurrencyManager;
+                cm.Refresh();
             }
         }
-        public delegate void RefreshUIDgvAvailIssuesDele(object ds);
-        public void RefreshUIDgvAvailIssues(object ds)
+      
+
+        public delegate void RefreshUIDgvAvailIssuesDele();
+        public void RefreshUIDgvAvailIssues()
         {
+            
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new RefreshUIDgvAvailIssuesDele(RefreshUIDgvAvailIssues),ds);
+                this.BeginInvoke(new RefreshUIDgvAvailIssuesDele(RefreshUIDgvAvailIssues));
             }
             else
             {
-                dgAvailIssues.DataSource = ds;
-
+           
+                CurrencyManager cm = dgv_AvailableIssues.BindingContext[dgv_AvailableIssues.DataSource] as CurrencyManager;
+                cm.Refresh();
             }
+            
+          
+
         }
-         
-  
+
         private void dgv_STO_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgv_STO.Columns[e.ColumnIndex].Name == "col_Preplan")
@@ -101,7 +95,7 @@ namespace FusionPrePlaner
                 {
                     var sto_name = dgv_STO.Rows[e.RowIndex].Cells["col_STO"].Value.ToString();
                     var sto = ScrumTeamOwner.GetSTO(sto_name);
-                    var preplanner = PrePlanner.GetPrePlannerFromTeamCode(sto.TeamCode);
+                    var preplanner = PrePlanner.GetPrePlannerFromTeamCode(sto.Code);
 
 
                     preplanner.AsyncProcessSTO();
@@ -119,7 +113,7 @@ namespace FusionPrePlaner
         {
            
 
-            foreach (var preplanner in _prePlannerList)
+            foreach (var preplanner in PrePlanner.PrePlannerList)
             {
                 preplanner.AsyncProcessSTO();
             }
@@ -303,12 +297,12 @@ namespace FusionPrePlaner
         {
             if(dgv_STO.SelectedRows.Count>0)
             {
-                var obj = dgv_STO.SelectedRows[0].Cells["TeamCode"].Value;
+                var obj = dgv_STO.SelectedRows[0].Cells["Code"].Value;
                 string teamcode = obj == null ? null : obj.ToString();
                 var preplanner = PrePlanner.GetPrePlannerFromTeamCode(teamcode);
                 if(preplanner !=null)
                 {
-                    dgAvailIssues.DataSource = preplanner.AvailableIssues;
+                    dgv_AvailableIssues.DataSource = preplanner.AvailableIssues;
                 }
                 
 

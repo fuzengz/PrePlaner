@@ -37,7 +37,7 @@ namespace FusionPrePlaner
 
         public static PrePlanner GetPrePlannerFromTeamCode(string code )
         {
-            return  PrePlannerList.Where<PrePlanner>(planner => planner.Sto.TeamCode == code).ToList()[0];
+            return  PrePlannerList.Where<PrePlanner>(planner => planner.Sto.Code == code).ToList()[0];
            
         }
             
@@ -52,7 +52,7 @@ namespace FusionPrePlaner
                 if(_availableIssues == null)
                 {
                     _availableIssues = new DataTable("Issues");
-
+                    _availableIssues.Columns.Add(new DataColumn("Key", typeof(string)));
                     _availableIssues.Columns.Add(new DataColumn("Item ID", typeof(string)));
                     _availableIssues.Columns.Add(new DataColumn("FP", typeof(string)));                 
                     _availableIssues.Columns.Add(new DataColumn("Priority", typeof(string)));
@@ -91,11 +91,11 @@ namespace FusionPrePlaner
             if(Sto.Selected == true && Sto.Run_Stat == STO_RUN_STAT.TO_RUN)
             {
                 Sto.Run_Stat = STO_RUN_STAT.RUNNING;
-                Program.fmMainWindow.RefreshUI();
+                Program.fmMainWindow.RefreshUIDgvSTO();
                 
                 ExecuteAlgorithm();
                 Sto.Run_Stat = STO_RUN_STAT.TO_RUN;
-                Program.fmMainWindow.RefreshUI();
+                Program.fmMainWindow.RefreshUIDgvSTO();
             }
 
         }
@@ -104,18 +104,19 @@ namespace FusionPrePlaner
            
             logger.Info("ExecuteAlgorithm for STO " + Sto.Name);
 
-            Program.fmMainWindow.RefreshUIDgvAvailIssues(null);
+            Program.fmMainWindow.RefreshUIDgvAvailIssues();
+
             AvailableIssues.Rows.Clear();
             
             GetAvailableIssues();
-              Program.fmMainWindow.RefreshUIDgvAvailIssues(AvailableIssues);
+              Program.fmMainWindow.RefreshUIDgvAvailIssues();
 
 
         }
 
         public  void GetAvailableIssues()
         {
-            string strFilter = string.Format("search?jql=cf[29790]={0}%20and%20status=Open", Sto.TeamCode) ;
+            string strFilter = string.Format("search?jql=cf[29790]={0}%20and%20status=Open", Sto.Code) ;
             string strFields = "&fields=customfield_37381,customfield_38702,customfield_38719,customfield_29790,status,customfield_38751,customfield_38694,customfield_38693,timetracking,customfield_38725";
             string strOrderby = "+order+by+cf[38719]";
             string strSearch = strFilter + strOrderby + strFields;
@@ -128,16 +129,31 @@ namespace FusionPrePlaner
             {
                 string cmd = "&startAt=" + curIssueNum.ToString();
                 string json = RestAPIAccess.ExecuteRestAPI_CURL(Config.Instance.UserName, Config.Instance.Password, url, "GET", cmd);
-                
-                RootObject rb = JsonConvert.DeserializeObject<RootObject>(json);
-                foreach (Issues issue in rb.issues)
+                try
                 {
-                    TableObject newTabObj = new TableObject(issue);
-                    AvailableIssues.Rows.Add(newTabObj.ItemID, newTabObj.FP,newTabObj.UnifiedPriority, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
-                       newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort);
+                    RootObject rb = JsonConvert.DeserializeObject<RootObject>(json);
+                    if (rb.issues == null)
+                    {
+                        logger.Error("Data error:" + json);
+                        return;
+                    }
+                    foreach (Issues issue in rb.issues)
+                    {
+                        TableObject newTabObj = new TableObject(issue);
+                        AvailableIssues.Rows.Add(newTabObj.Key,newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
+                           newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort);
+                    }
+                    totalIssueNum = Convert.ToInt32(rb.total);
+                    curIssueNum += rb.issues.Count;
                 }
-                totalIssueNum = Convert.ToInt32(rb.total);
-                curIssueNum += rb.issues.Count;
+                catch(SystemException exp)
+                {
+                    logger.Error("exception:" + exp.Message +"---" + json);
+                    return;
+                }
+
+                
+               
             }
             
         }

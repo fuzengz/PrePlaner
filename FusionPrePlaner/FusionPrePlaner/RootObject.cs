@@ -74,7 +74,7 @@ namespace FusionPrePlaner
 
     class TableObject
     {
-   
+        public string Key = null;
         public string FP = null;
         public string ItemID = null;
         public string UnifiedPriority = null;
@@ -93,6 +93,7 @@ namespace FusionPrePlaner
         public TableObject(Issues issue)
         {
 
+            Key = issue.key;
             FP = issue.fields.customfield_37381;
             ItemID = issue.fields.customfield_38702;
             UnifiedPriority = issue.fields.customfield_38719;
