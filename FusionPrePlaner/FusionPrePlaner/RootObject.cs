@@ -94,24 +94,29 @@ namespace FusionPrePlaner
         {
 
             Key = issue.key;
-            FP = issue.fields.customfield_37381;
-            ItemID = issue.fields.customfield_38702;
-            UnifiedPriority = issue.fields.customfield_38719;
-            ScrumTeamOwner = issue.fields.customfield_29790;
-            Status = issue.fields.status.name;
-            StartFB = issue.fields.customfield_38694; ;
-            EndFB = issue.fields.customfield_38693;
-            TargetFB = issue.fields.customfield_38751.value;
-           
-            OriginalEffort = issue.fields.timetracking.originalEstimate;
-            RemWorkEffort = issue.fields.timetracking.remainingEstimate;
-            try
-            {
-                LeadRelease = issue.fields.customfield_38725[0].value;//sometimes many 
-            }
-            catch
-            {
-                LeadRelease = null;
+            if(issue.fields != null){
+                FP = issue.fields.customfield_37381;
+                ItemID = issue.fields.customfield_38702;
+                UnifiedPriority = issue.fields.customfield_38719;
+                ScrumTeamOwner = issue.fields.customfield_29790;
+                Status = issue.fields.status.name;
+                StartFB = issue.fields.customfield_38694; ;
+                EndFB = issue.fields.customfield_38693;
+                TargetFB = issue.fields.customfield_38751.value;
+
+                if(isssue.fields.timetracking != null){
+                    OriginalEffort = issue.fields.timetracking.originalEstimate;
+                    RemWorkEffort = issue.fields.timetracking.remainingEstimate;
+                }
+
+                try
+                {
+                    LeadRelease = issue.fields.customfield_38725[0].value;//sometimes many 
+                }
+                catch
+                {
+                    LeadRelease = null;
+                }
             }
             
         }
