@@ -121,6 +121,8 @@ namespace FusionPrePlaner
 
         private void FM_Main_Load(object sender, EventArgs e)
         {
+            //show view of FB
+            LoadFB();
             if (Config.Instance.RunOnStart)
             {
                 RunAllPrePlan();
@@ -308,7 +310,35 @@ namespace FusionPrePlaner
 
 
             }
-           
+        }
+
+        private void LoadFB()
+        {
+            //empty view data once open
+            dataGridView2.DataSource = null;
+            //write the path of Excel file, then call GetData method to get data in Excels
+            DataTable dt_dates = FBAccess.excelToDataSet("FZM FBP tool.xlsb", "Feature Build,Start Date,End Date", "Dates");                                                                                                                              
+            DataTable dt_cap = FBAccess.excelToDataSet("FZM FBP tool.xlsb", "Capacities,FT_FZ01_Dev,FT_FZ02_Dev", "cap");
+            DataTable dt_dates_update = FBAccess.UpdateDatatableOne(dt_dates);
+            DataTable dt_dates_distinct = FBAccess.GetDistinctPrimaryKeyColumnTable(dt_dates_update, new string[] { "Feature Build", "Start Date", "End Date" });
+            DataTable dt_cap_update = FBAccess.updateDatatableTwo(dt_cap);
+            DataTable dt_fb = FBAccess.MergeDataTable(dt_dates_distinct, dt_cap_update);
+            int count = dt_fb.Rows.Count;
+            if (dt_fb.Rows.Count > 0)
+            {
+                List<Fb> lists = new List<Fb>();
+                for (int i = 0; i < dt_fb.Rows.Count; i++)
+                {
+                    Fb fb = new Fb();
+                    fb.FB = Convert.ToString(dt_fb.Rows[i][0]);
+                    fb.StartDate = Convert.ToDateTime(dt_fb.Rows[i][1]);
+                    fb.EndDate = Convert.ToDateTime(dt_fb.Rows[i][2]);
+                    fb.FZ01 = Convert.ToString(dt_fb.Rows[i][3]);
+                    fb.FZ02 = Convert.ToString(dt_fb.Rows[i][4]);
+                    lists.Add(fb);
+                }
+                dataGridView2.DataSource = lists;
+            }
         }
 
         /*

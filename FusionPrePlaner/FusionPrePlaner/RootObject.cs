@@ -104,7 +104,7 @@ namespace FusionPrePlaner
                 EndFB = issue.fields.customfield_38693;
                 TargetFB = issue.fields.customfield_38751.value;
 
-                if(isssue.fields.timetracking != null){
+                if(issue.fields.timetracking != null){
                     OriginalEffort = issue.fields.timetracking.originalEstimate;
                     RemWorkEffort = issue.fields.timetracking.remainingEstimate;
                 }
