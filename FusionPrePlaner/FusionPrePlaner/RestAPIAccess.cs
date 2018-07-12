@@ -10,6 +10,9 @@ namespace FusionPrePlaner
 {
     class RestAPIAccess
     {
+
+       
+
         public static string ExecuteRestAPI_CURL(string username, string password,string restApi_Url, string opType, string cmd)
         {
             Process p = new Process();
@@ -22,7 +25,6 @@ namespace FusionPrePlaner
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
-
 
             try
             {

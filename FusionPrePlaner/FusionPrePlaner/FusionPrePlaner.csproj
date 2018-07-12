@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{47AC965B-277C-47CD-BB9A-ED9031FD8D4E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>FusionPrePlaner</RootNamespace>
     <AssemblyName>FusionPrePlaner</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -79,6 +79,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestAPIAccess.cs" />
+    <Compile Include="RootObject.cs" />
     <Compile Include="ScrumTeamOwner.cs" />
     <EmbeddedResource Include="FM_Main.resx">
       <DependentUpon>FM_Main.cs</DependentUpon>

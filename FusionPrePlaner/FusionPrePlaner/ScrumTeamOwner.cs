@@ -19,6 +19,7 @@ namespace FusionPrePlaner
 
 
         public string Name { get; set; }
+        public string TeamCode { get; set; }
         public string Squad { get; set; }
         public string Ca { get; set; }
         public bool Selected { get; set; }
@@ -45,6 +46,14 @@ namespace FusionPrePlaner
             Ca = ca;
             Selected = selected;
             Run_Stat = run_stat;
+            try
+            {
+                TeamCode = DicTeamToCode[Name];
+            }
+            catch
+            {
+                TeamCode = null;
+            }
             
         }
 
@@ -90,6 +99,21 @@ namespace FusionPrePlaner
         {
             "FZ40", "FZ41", "FZ42"
         };
+
+        private static Dictionary<string, string> _dicTeamToCode;
+     
+        public static Dictionary<string, string> DicTeamToCode
+        {
+            get
+            {
+                if(_dicTeamToCode == null)
+                {
+                    _dicTeamToCode = new Dictionary<string, string>();
+                    _dicTeamToCode.Add("FZ18", "1302");
+                }
+                return _dicTeamToCode;
+            }
+        }
 
 
         public static List<string> ValidFzTeams => FzmTeams.Union(WcdmaTeams).Union(MultifireTeams).Union(ScTrsTeams).ToList();

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tp_main = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -47,7 +47,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgAvailIssues = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCountDown = new System.Windows.Forms.TextBox();
@@ -86,7 +86,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgAvailIssues)).BeginInit();
             this.panel1.SuspendLayout();
             this.tp_config.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -209,6 +209,7 @@
             this.dgv_STO.Size = new System.Drawing.Size(302, 656);
             this.dgv_STO.TabIndex = 0;
             this.dgv_STO.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_STO_CellContentClick);
+            this.dgv_STO.SelectionChanged += new System.EventHandler(this.dgv_STO_SelectionChanged);
             // 
             // selected
             // 
@@ -240,9 +241,9 @@
             // col_Preplan
             // 
             this.col_Preplan.DataPropertyName = "Str_Run_Stat";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "Run";
-            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = "Run";
+            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle3;
             this.col_Preplan.HeaderText = "Run";
             this.col_Preplan.Name = "col_Preplan";
             this.col_Preplan.ReadOnly = true;
@@ -283,7 +284,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.dgAvailIssues);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(317, 3);
@@ -293,18 +294,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Available ITEMS";
             // 
-            // dataGridView1
+            // dgAvailIssues
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(417, 471);
-            this.dataGridView1.TabIndex = 0;
+            this.dgAvailIssues.AllowUserToAddRows = false;
+            this.dgAvailIssues.AllowUserToDeleteRows = false;
+            this.dgAvailIssues.AllowUserToOrderColumns = true;
+            this.dgAvailIssues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgAvailIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgAvailIssues.Location = new System.Drawing.Point(3, 16);
+            this.dgAvailIssues.Name = "dgAvailIssues";
+            this.dgAvailIssues.ReadOnly = true;
+            this.dgAvailIssues.Size = new System.Drawing.Size(417, 471);
+            this.dgAvailIssues.TabIndex = 0;
             // 
             // panel1
             // 
@@ -610,7 +611,7 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgAvailIssues)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tp_config.ResumeLayout(false);
@@ -634,7 +635,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgAvailIssues;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.StatusStrip statusStrip1;
