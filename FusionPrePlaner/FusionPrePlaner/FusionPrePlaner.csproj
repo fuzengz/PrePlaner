@@ -69,6 +69,7 @@
     <Compile Include="Extensions\LevenshteinDistanceExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FBAccess.cs" />
     <Compile Include="FM_Main.cs">
       <SubType>Form</SubType>
     </Compile>
