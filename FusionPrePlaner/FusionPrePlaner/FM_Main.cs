@@ -311,13 +311,13 @@ namespace FusionPrePlaner
 
             }
         }
-
+        
         private void LoadFB()
         {
             //empty view data once open
             dataGridView2.DataSource = null;
             //write the path of Excel file, then call GetData method to get data in Excels
-            DataTable dt_dates = FBAccess.excelToDataSet("FZM FBP tool.xlsb", "Feature Build,Start Date,End Date", "Dates");                                                                                                                              
+            DataTable dt_dates = FBAccess.excelToDataSet("FZM FBP tool.xlsb", "Feature Build,Start Date,End Date", "Dates");
             DataTable dt_cap = FBAccess.excelToDataSet("FZM FBP tool.xlsb", "Capacities,FT_FZ01_Dev,FT_FZ02_Dev", "cap");
             DataTable dt_dates_update = FBAccess.UpdateDatatableOne(dt_dates);
             DataTable dt_dates_distinct = FBAccess.GetDistinctPrimaryKeyColumnTable(dt_dates_update, new string[] { "Feature Build", "Start Date", "End Date" });
@@ -340,6 +340,12 @@ namespace FusionPrePlaner
                 dataGridView2.DataSource = lists;
             }
         }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
 
         /*
         private void btnTestConn_Click(object sender, EventArgs e)

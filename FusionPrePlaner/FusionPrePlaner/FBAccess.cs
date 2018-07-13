@@ -31,42 +31,11 @@ namespace FusionPrePlaner
     {
         private static string getExcelOleDBConnectStr(string filePath)
         {
-            //System.IO.DirectoryInfo topDir = System.IO.Directory.GetParent(System.Environment.CurrentDirectory);
-            //string pathto = topDir.Parent.Parent.FullName;
-            //filePath = pathto + Path.DirectorySeparatorChar + "'" +filePath + "'";
             string strConn = "Provider=Microsoft.ACE.OLEDB.12.0;"
-                + "Data Source=\"" + @filePath + "\";" + "Extended Properties='Excel 12.0; HDR=Yes; IMEX=1'";
-            
+                + "Data Source=" + @filePath + ";" + "Extended Properties='Excel 12.0;HDR=Yes;IMEX=1'";
+
             return strConn;
         }
-        /*
-        private static ArrayList getExcelSheetNames(string filePath)
-        {
-            ArrayList arrayNames = new ArrayList();
-            string strConn = getExcelOleDBConnectStr(filePath);
-            DataTable tb = null;
-
-            try
-            {
-                OleDbConnection conn = new OleDbConnection(strConn);
-                conn.Open();
-                tb = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                foreach (System.Data.DataRow drow in tb.Rows)
-                {
-                    string sheetName = drow["TABLE_NAME"].ToString().Trim();
-                    int pos = sheetName.LastIndexOf('$');
-                    if (pos != -1 && (sheetName == "cap" || sheetName == "Dates"))
-                    {
-                        arrayNames.Add(sheetName.Substring(0, pos));
-                    }
-                }
-            }
-            catch (System.Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return arrayNames;
-        }*/
 
         public static DataTable excelToDataSet(string filePath, string filterdata, string tobeOpenSheet)
         {
@@ -76,15 +45,12 @@ namespace FusionPrePlaner
 
             try
             {
-                MessageBox.Show(strConn);
-                //some error here
                 conn.Open();
                 string strExcel = "";
                 OleDbDataAdapter myCommand = null;
                 strExcel = "select * from [" + tobeOpenSheet + "$]";
                 myCommand = new OleDbDataAdapter(strExcel, strConn);
                 ds = new DataTable();
-
                 myCommand.Fill(ds);
             }
             catch (System.Exception ex)
@@ -170,7 +136,7 @@ namespace FusionPrePlaner
 
         public static DataTable MergeDataTable(DataTable DataTableOne, DataTable DataTableTwo)
         {
-            DataTable newDataTable = DataTableTwo.Clone();
+            DataTable newDataTable = DataTableOne.Clone();
             for (int i = 1; i < DataTableTwo.Columns.Count; i++)
             {
                 //add column structure in DataTableTwo to new DataTable
