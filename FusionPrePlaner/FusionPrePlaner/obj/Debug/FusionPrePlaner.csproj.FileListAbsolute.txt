@@ -62,3 +62,4 @@ C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Deb
 C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\Newtonsoft.Json.xml
 C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\NLog.xml
 C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.csproj.CopyComplete
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Debug\FZM FBP tool.xlsb

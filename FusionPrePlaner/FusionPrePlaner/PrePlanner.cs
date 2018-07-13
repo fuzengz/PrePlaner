@@ -44,33 +44,62 @@ namespace FusionPrePlaner
 
 
         private ScrumTeamOwner Sto;
-        private DataTable _availableIssues;
-        public DataTable AvailableIssues
+        private DataTable _sto_allIssues;
+        public DataTable STO_AllIssues
         {
             get
             {
-                if(_availableIssues == null)
+                if(_sto_allIssues == null)
                 {
-                    _availableIssues = new DataTable("Issues");
-                    _availableIssues.Columns.Add(new DataColumn("Key", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("Item ID", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("FP", typeof(string)));                 
-                    _availableIssues.Columns.Add(new DataColumn("Priority", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("STO", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("Entity REL", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("Status", typeof(string)));
+                    _sto_allIssues = new DataTable("Issues");
+                    _sto_allIssues.Columns.Add(new DataColumn("Key", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Item ID", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("FP", typeof(string)));                 
+                    _sto_allIssues.Columns.Add(new DataColumn("Priority", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("STO", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Entity REL", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Status", typeof(string)));
 
-                    _availableIssues.Columns.Add(new DataColumn("Start FB", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("End FB", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("Target FB", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Start FB", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("End FB", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Target FB", typeof(string)));
 
-                    _availableIssues.Columns.Add(new DataColumn("Ori Eff", typeof(string)));
-                    _availableIssues.Columns.Add(new DataColumn("Rem Eff", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Ori Eff", typeof(string)));
+                    _sto_allIssues.Columns.Add(new DataColumn("Rem Eff", typeof(string)));
 
                 }
-                return _availableIssues;
+                return _sto_allIssues;
             }
-        }  
+        }
+
+
+        private DataTable _dtAvai;
+        private DataTable _dtUntouch;
+
+        public DataTable DT_AvailIssues
+        {
+            get
+            {
+                if (_dtAvai == null)
+                {
+                    _dtAvai = STO_AllIssues.Clone();
+
+                }
+                return _dtAvai;
+            }
+        }
+        public DataTable DT_UntouchableIssues
+        {
+            get
+            {
+                if (_dtUntouch == null)
+                {
+                    _dtUntouch = STO_AllIssues.Clone();
+
+                }
+                return _dtUntouch;
+            }
+        }
 
         public PrePlanner(ScrumTeamOwner sto)
         {
@@ -105,19 +134,25 @@ namespace FusionPrePlaner
             logger.Info("ExecuteAlgorithm for STO " + Sto.Name);
 
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
-
-            AvailableIssues.Rows.Clear();
+            Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
             
-            GetAvailableIssues();
+            
+            
+            GetAllIssues();
             //
-              Program.fmMainWindow.RefreshUIDgvAvailIssues();
+            Program.fmMainWindow.RefreshUIDgvAvailIssues();
+            Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
 
 
         }
 
-        public  void GetAvailableIssues()
+        public  void GetAllIssues()
         {
             //string strFilter = string.Format("search?jql=cf[29790]={0}%20and%20status=Open", Sto.Code) ;
+
+            STO_AllIssues.Rows.Clear();
+            DT_AvailIssues.Rows.Clear();
+            DT_UntouchableIssues.Rows.Clear();
             string strFilter = string.Format("search?jql=cf[29790]={0}", Sto.Code);
             string strFields = "&fields=customfield_37381,customfield_38702,customfield_38719,customfield_29790,status,customfield_38751,customfield_38694,customfield_38693,timetracking,customfield_38725";
             string strOrderby = "+order+by+cf[38719]";
@@ -141,8 +176,12 @@ namespace FusionPrePlaner
                     }
                     foreach (Issues issue in rb.issues)
                     {
+
                         TableObject newTabObj = new TableObject(issue);
-                        AvailableIssues.Rows.Add(newTabObj.Key,newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
+                        STO_AllIssues.Rows.Add(newTabObj.Key, newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
+                           newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort);
+                        var dt = newTabObj.Status == "Open" ? DT_AvailIssues : DT_UntouchableIssues;
+                        dt.Rows.Add(newTabObj.Key,newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
                            newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort);
                     }
                     totalIssueNum = Convert.ToInt32(rb.total);

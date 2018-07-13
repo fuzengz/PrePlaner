@@ -50,7 +50,6 @@
             this.btnRunAll = new System.Windows.Forms.Button();
             this.txtNextRunDt = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgv_AvailableIssues = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -81,6 +80,7 @@
             this.txtInterval = new System.Windows.Forms.TextBox();
             this.errProviderConfig = new System.Windows.Forms.ErrorProvider(this.components);
             this.timer1Sec = new System.Windows.Forms.Timer(this.components);
+            this.dgv_UntouchableIssues = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tp_main.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -88,7 +88,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_STO)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AvailableIssues)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -97,6 +96,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_UntouchableIssues)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -310,7 +310,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.dataGridView3);
+            this.groupBox4.Controls.Add(this.dgv_UntouchableIssues);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(329, 339);
@@ -319,19 +319,6 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Untouchable ITEMS";
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.AllowUserToAddRows = false;
-            this.dataGridView3.AllowUserToDeleteRows = false;
-            this.dataGridView3.AllowUserToOrderColumns = true;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView3.Location = new System.Drawing.Point(3, 17);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.ReadOnly = true;
-            this.dataGridView3.Size = new System.Drawing.Size(770, 287);
-            this.dataGridView3.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -392,7 +379,6 @@
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.Size = new System.Drawing.Size(228, 623);
             this.dataGridView2.TabIndex = 0;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // FB
             // 
@@ -647,6 +633,22 @@
             this.timer1Sec.Interval = 1000;
             this.timer1Sec.Tick += new System.EventHandler(this.timer1Sec_Tick);
             // 
+            // dgv_UntouchableIssues
+            // 
+            this.dgv_UntouchableIssues.AllowUserToAddRows = false;
+            this.dgv_UntouchableIssues.AllowUserToDeleteRows = false;
+            this.dgv_UntouchableIssues.AllowUserToOrderColumns = true;
+            this.dgv_UntouchableIssues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgv_UntouchableIssues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_UntouchableIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_UntouchableIssues.Location = new System.Drawing.Point(3, 17);
+            this.dgv_UntouchableIssues.Name = "dgv_UntouchableIssues";
+            this.dgv_UntouchableIssues.ReadOnly = true;
+            this.dgv_UntouchableIssues.RowHeadersVisible = false;
+            this.dgv_UntouchableIssues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_UntouchableIssues.Size = new System.Drawing.Size(770, 287);
+            this.dgv_UntouchableIssues.TabIndex = 1;
+            // 
             // FM_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -665,7 +667,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AvailableIssues)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -676,6 +677,7 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_UntouchableIssues)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -693,7 +695,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgv_AvailableIssues;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.CheckBox chkSelectAllSTO;
         private System.Windows.Forms.DataGridViewCheckBoxColumn selected;
@@ -733,6 +734,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn FZ01;
         private System.Windows.Forms.DataGridViewTextBoxColumn FZ02;
+        private System.Windows.Forms.DataGridView dgv_UntouchableIssues;
     }
 }
 
