@@ -302,7 +302,12 @@ namespace FusionPrePlaner
                 var preplanner = PrePlanner.GetPrePlannerFromTeamCode(teamcode);
                 if(preplanner !=null)
                 {
-                    dgv_AvailableIssues.DataSource = preplanner.AvailableIssues;
+                    var bs = new BindingSource();
+                    bs.DataSource = preplanner.AvailableIssues;
+                    bs.Filter = "Status='Open'";
+                    dgv_AvailableIssues.DataSource = bs;
+
+                    
                 }
                 
 

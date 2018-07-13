@@ -101,7 +101,15 @@ namespace FusionPrePlaner
             Status = issue.fields.status.name;
             StartFB = issue.fields.customfield_38694; ;
             EndFB = issue.fields.customfield_38693;
-            TargetFB = issue.fields.customfield_38751.value;
+            try
+            {
+                TargetFB = issue.fields.customfield_38751.value;
+            }
+            catch
+            {
+                TargetFB = null;
+            }
+         
            
             OriginalEffort = issue.fields.timetracking.originalEstimate;
             RemWorkEffort = issue.fields.timetracking.remainingEstimate;

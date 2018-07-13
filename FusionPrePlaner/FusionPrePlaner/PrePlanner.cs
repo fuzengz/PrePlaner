@@ -109,6 +109,7 @@ namespace FusionPrePlaner
             AvailableIssues.Rows.Clear();
             
             GetAvailableIssues();
+            //
               Program.fmMainWindow.RefreshUIDgvAvailIssues();
 
 
@@ -116,7 +117,8 @@ namespace FusionPrePlaner
 
         public  void GetAvailableIssues()
         {
-            string strFilter = string.Format("search?jql=cf[29790]={0}%20and%20status=Open", Sto.Code) ;
+            //string strFilter = string.Format("search?jql=cf[29790]={0}%20and%20status=Open", Sto.Code) ;
+            string strFilter = string.Format("search?jql=cf[29790]={0}", Sto.Code);
             string strFields = "&fields=customfield_37381,customfield_38702,customfield_38719,customfield_29790,status,customfield_38751,customfield_38694,customfield_38693,timetracking,customfield_38725";
             string strOrderby = "+order+by+cf[38719]";
             string strSearch = strFilter + strOrderby + strFields;
@@ -150,9 +152,7 @@ namespace FusionPrePlaner
                 {
                     logger.Error("exception:" + exp.Message +"---" + json);
                     return;
-                }
-
-                
+                }   
                
             }
             
