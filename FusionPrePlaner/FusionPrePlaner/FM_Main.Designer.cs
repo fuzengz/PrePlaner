@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tp_main = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -50,15 +50,11 @@
             this.btnRunAll = new System.Windows.Forms.Button();
             this.txtNextRunDt = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dgv_UntouchableIssues = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dgv_AvailableIssues = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.FB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FZ01 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FZ02 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_FBList = new System.Windows.Forms.DataGridView();
             this.tp_config = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnRestApiConfigCancel = new System.Windows.Forms.Button();
@@ -80,7 +76,6 @@
             this.txtInterval = new System.Windows.Forms.TextBox();
             this.errProviderConfig = new System.Windows.Forms.ErrorProvider(this.components);
             this.timer1Sec = new System.Windows.Forms.Timer(this.components);
-            this.dgv_UntouchableIssues = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tp_main.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -88,15 +83,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_STO)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_UntouchableIssues)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AvailableIssues)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_FBList)).BeginInit();
             this.tp_config.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_UntouchableIssues)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -222,9 +217,9 @@
             // col_Preplan
             // 
             this.col_Preplan.DataPropertyName = "Str_Run_Stat";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "Run";
-            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = "Run";
+            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle2;
             this.col_Preplan.HeaderText = "Run";
             this.col_Preplan.Name = "col_Preplan";
             this.col_Preplan.ReadOnly = true;
@@ -320,6 +315,22 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Untouchable ITEMS";
             // 
+            // dgv_UntouchableIssues
+            // 
+            this.dgv_UntouchableIssues.AllowUserToAddRows = false;
+            this.dgv_UntouchableIssues.AllowUserToDeleteRows = false;
+            this.dgv_UntouchableIssues.AllowUserToOrderColumns = true;
+            this.dgv_UntouchableIssues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgv_UntouchableIssues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_UntouchableIssues.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_UntouchableIssues.Location = new System.Drawing.Point(3, 17);
+            this.dgv_UntouchableIssues.Name = "dgv_UntouchableIssues";
+            this.dgv_UntouchableIssues.ReadOnly = true;
+            this.dgv_UntouchableIssues.RowHeadersVisible = false;
+            this.dgv_UntouchableIssues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_UntouchableIssues.Size = new System.Drawing.Size(770, 287);
+            this.dgv_UntouchableIssues.TabIndex = 1;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgv_AvailableIssues);
@@ -350,7 +361,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridView2);
+            this.groupBox3.Controls.Add(this.dgv_FBList);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(1111, 3);
@@ -361,64 +372,20 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Feature Builds";
             // 
-            // dataGridView2
+            // dgv_FBList
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AllowUserToOrderColumns = true;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FB,
-            this.StartDate,
-            this.EndDate,
-            this.FZ01,
-            this.FZ02});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 17);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(228, 623);
-            this.dataGridView2.TabIndex = 0;
-            // 
-            // FB
-            // 
-            this.FB.DataPropertyName = "FB";
-            this.FB.HeaderText = "FB";
-            this.FB.Name = "FB";
-            this.FB.ReadOnly = true;
-            this.FB.Width = 50;
-            // 
-            // StartDate
-            // 
-            this.StartDate.DataPropertyName = "StartDate";
-            this.StartDate.HeaderText = "StartDate";
-            this.StartDate.Name = "StartDate";
-            this.StartDate.ReadOnly = true;
-            this.StartDate.Width = 60;
-            // 
-            // EndDate
-            // 
-            this.EndDate.DataPropertyName = "EndDate";
-            this.EndDate.HeaderText = "EndDate";
-            this.EndDate.Name = "EndDate";
-            this.EndDate.ReadOnly = true;
-            this.EndDate.Width = 60;
-            // 
-            // FZ01
-            // 
-            this.FZ01.DataPropertyName = "FZ01";
-            this.FZ01.HeaderText = "FZ01";
-            this.FZ01.Name = "FZ01";
-            this.FZ01.ReadOnly = true;
-            this.FZ01.Width = 40;
-            // 
-            // FZ02
-            // 
-            this.FZ02.DataPropertyName = "FZ02";
-            this.FZ02.HeaderText = "FZ02";
-            this.FZ02.Name = "FZ02";
-            this.FZ02.ReadOnly = true;
-            this.FZ02.Width = 40;
+            this.dgv_FBList.AllowUserToAddRows = false;
+            this.dgv_FBList.AllowUserToDeleteRows = false;
+            this.dgv_FBList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgv_FBList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_FBList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_FBList.Location = new System.Drawing.Point(3, 17);
+            this.dgv_FBList.MultiSelect = false;
+            this.dgv_FBList.Name = "dgv_FBList";
+            this.dgv_FBList.ReadOnly = true;
+            this.dgv_FBList.RowHeadersVisible = false;
+            this.dgv_FBList.Size = new System.Drawing.Size(228, 623);
+            this.dgv_FBList.TabIndex = 0;
             // 
             // tp_config
             // 
@@ -633,22 +600,6 @@
             this.timer1Sec.Interval = 1000;
             this.timer1Sec.Tick += new System.EventHandler(this.timer1Sec_Tick);
             // 
-            // dgv_UntouchableIssues
-            // 
-            this.dgv_UntouchableIssues.AllowUserToAddRows = false;
-            this.dgv_UntouchableIssues.AllowUserToDeleteRows = false;
-            this.dgv_UntouchableIssues.AllowUserToOrderColumns = true;
-            this.dgv_UntouchableIssues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgv_UntouchableIssues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_UntouchableIssues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_UntouchableIssues.Location = new System.Drawing.Point(3, 17);
-            this.dgv_UntouchableIssues.Name = "dgv_UntouchableIssues";
-            this.dgv_UntouchableIssues.ReadOnly = true;
-            this.dgv_UntouchableIssues.RowHeadersVisible = false;
-            this.dgv_UntouchableIssues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_UntouchableIssues.Size = new System.Drawing.Size(770, 287);
-            this.dgv_UntouchableIssues.TabIndex = 1;
-            // 
             // FM_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -667,17 +618,17 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_UntouchableIssues)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AvailableIssues)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_FBList)).EndInit();
             this.tp_config.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_UntouchableIssues)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -691,7 +642,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgv_STO;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView dgv_FBList;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgv_AvailableIssues;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -729,11 +680,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnRestApiConfigCancel;
         private System.Windows.Forms.Button btnRestApiConfigApply;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FZ01;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FZ02;
         private System.Windows.Forms.DataGridView dgv_UntouchableIssues;
     }
 }

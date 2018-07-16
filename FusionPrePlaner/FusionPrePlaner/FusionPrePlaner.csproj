@@ -70,6 +70,7 @@
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FBAccess.cs" />
+    <Compile Include="FeatureBuild.cs" />
     <Compile Include="FM_Main.cs">
       <SubType>Form</SubType>
     </Compile>
