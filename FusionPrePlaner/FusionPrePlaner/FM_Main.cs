@@ -378,31 +378,22 @@ namespace FusionPrePlaner
            
         }
 
-       
+        public DataTable DT_FB;
+        public DataTable DT_Rel;
 
-       
-        
-        /*
-        class Fb
-        {
-            public string FB { get; set; }
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public string FZ01 { get; set; }
-            public string FZ02 { get; set; }
-        }
-        */
         private void LoadFB()
         {
             dgv_FBList.DataSource = null; //每次打开清空内容
-            DataTable dt_dates = FeatureBuild.excelToDataSet("FZM FBP tool.xlsb", "Feature Build,Start Date,End Date", "Dates");                         //调用GetData方发写上Excel文件所在的路径，这样就能获取到Excel表里面的数据了                                                                                                                              
-            DataTable dt_cap = FeatureBuild.excelToDataSet("FZM FBP tool.xlsb", "Capacities,FT_FZ01_Dev,FT_FZ02_Dev", "cap");                         //调用GetData方发写上Excel文件所在的路径，这样就能获取到Excel表里面的数据了        
+            DataTable dt_xls_dates = FeatureBuild.excelToDataSet("FZM FBP tool.xlsb", "Feature Build,Start Date,End Date", "Dates");                         //调用GetData方发写上Excel文件所在的路径，这样就能获取到Excel表里面的数据了                                                                                                                              
+            DataTable dt_xls_cap = FeatureBuild.excelToDataSet("FZM FBP tool.xlsb", "Capacities,FT_FZ01_Dev,FT_FZ02_Dev", "cap");                         //调用GetData方发写上Excel文件所在的路径，这样就能获取到Excel表里面的数据了        
          
-            dt_dates = FeatureBuild.FormatDataTableDates(dt_dates);
-            dt_cap = FeatureBuild.FormatDataTableCap(dt_cap);
-            
-            DataTable dt_fb = FeatureBuild.MergeDataTable(dt_dates, dt_cap);
-            dgv_FBList.DataSource = dt_fb;
+            var dt_dates = FeatureBuild.FormatDataTableDates(dt_xls_dates);
+            var dt_cap = FeatureBuild.FormatDataTableCap(dt_xls_cap);
+            DT_Rel = FeatureBuild.FormatDataTableRelease(dt_xls_dates);
+
+            DT_FB = FeatureBuild.MergeDataTable(dt_dates, dt_cap);
+            dgv_FBList.DataSource = DT_FB;
+            dgv_Release.DataSource = DT_Rel;
            
         }
         

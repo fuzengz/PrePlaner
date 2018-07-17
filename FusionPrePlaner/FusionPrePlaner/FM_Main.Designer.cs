@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tp_main = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -76,6 +76,8 @@
             this.txtInterval = new System.Windows.Forms.TextBox();
             this.errProviderConfig = new System.Windows.Forms.ErrorProvider(this.components);
             this.timer1Sec = new System.Windows.Forms.Timer(this.components);
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.dgv_Release = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tp_main.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -92,6 +94,8 @@
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Release)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -136,6 +140,7 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox7, 2, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -217,9 +222,9 @@
             // col_Preplan
             // 
             this.col_Preplan.DataPropertyName = "Str_Run_Stat";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = "Run";
-            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = "Run";
+            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
             this.col_Preplan.HeaderText = "Run";
             this.col_Preplan.Name = "col_Preplan";
             this.col_Preplan.ReadOnly = true;
@@ -366,8 +371,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(1111, 3);
             this.groupBox3.Name = "groupBox3";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(234, 643);
+            this.groupBox3.Size = new System.Drawing.Size(234, 330);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Feature Builds";
@@ -384,7 +388,7 @@
             this.dgv_FBList.Name = "dgv_FBList";
             this.dgv_FBList.ReadOnly = true;
             this.dgv_FBList.RowHeadersVisible = false;
-            this.dgv_FBList.Size = new System.Drawing.Size(228, 623);
+            this.dgv_FBList.Size = new System.Drawing.Size(228, 310);
             this.dgv_FBList.TabIndex = 0;
             // 
             // tp_config
@@ -600,6 +604,32 @@
             this.timer1Sec.Interval = 1000;
             this.timer1Sec.Tick += new System.EventHandler(this.timer1Sec_Tick);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.dgv_Release);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Location = new System.Drawing.Point(1111, 339);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(234, 307);
+            this.groupBox7.TabIndex = 7;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Release";
+            // 
+            // dgv_Release
+            // 
+            this.dgv_Release.AllowUserToAddRows = false;
+            this.dgv_Release.AllowUserToDeleteRows = false;
+            this.dgv_Release.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgv_Release.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Release.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_Release.Location = new System.Drawing.Point(3, 16);
+            this.dgv_Release.MultiSelect = false;
+            this.dgv_Release.Name = "dgv_Release";
+            this.dgv_Release.ReadOnly = true;
+            this.dgv_Release.RowHeadersVisible = false;
+            this.dgv_Release.Size = new System.Drawing.Size(228, 288);
+            this.dgv_Release.TabIndex = 1;
+            // 
             // FM_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -629,6 +659,8 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Release)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -681,6 +713,8 @@
         private System.Windows.Forms.Button btnRestApiConfigCancel;
         private System.Windows.Forms.Button btnRestApiConfigApply;
         private System.Windows.Forms.DataGridView dgv_UntouchableIssues;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataGridView dgv_Release;
     }
 }
 

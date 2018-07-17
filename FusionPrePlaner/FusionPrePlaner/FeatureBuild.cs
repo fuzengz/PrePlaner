@@ -90,7 +90,16 @@ namespace FusionPrePlaner
             dtDistinct.Columns[0].ColumnName = "FB";
             return dtDistinct;
         }
-
+        public static DataTable FormatDataTableRelease(DataTable dtDates)
+        {
+            DataView dv = dtDates.DefaultView;
+            var PrimaryKeyColumns = new string[] { "Release Name", "Release Start fb", "Release End fb" };
+            DataTable dtDistinct = dv.ToTable(true, PrimaryKeyColumns);
+            dtDistinct.Columns[0].ColumnName = "Release";
+            dtDistinct.Columns[1].ColumnName = "Start FB";
+            dtDistinct.Columns[2].ColumnName = "End FB";
+            return dtDistinct;
+        }
 
 
         public static DataTable FormatDataTableCap(DataTable dtCap)
