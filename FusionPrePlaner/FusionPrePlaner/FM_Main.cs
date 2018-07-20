@@ -59,6 +59,8 @@ namespace FusionPrePlaner
                 var obj = dgv_STO.SelectedRows[0].Cells["Code"].Value;
                 string teamcode = obj == null ? null : obj.ToString();
                 var preplanner = PrePlanner.GetPrePlannerFromTeamCode(teamcode);
+                preplanner.get_FB(DT_FB);
+                preplanner.get_REL(DT_Rel);
                 if (preplanner != null)
                 {
                     bsAvail = new BindingSource();
