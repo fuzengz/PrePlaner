@@ -63,3 +63,25 @@ C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Deb
 C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\NLog.xml
 C:\Users\shaoconl\Source\Repos\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.csproj.CopyComplete
 D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Debug\FZM FBP tool.xlsb
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\curl\CURL.EXE
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\curl\LIBCURL.DLL
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\curl\LIBCURL.EXE
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\curl\LIBCURL.LIB
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\FZM FBP tool.xlsb
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\NLog.config
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\FusionPrePlaner.exe.config
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\FusionPrePlaner.exe
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\FusionPrePlaner.pdb
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\EntityFramework.dll
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\EntityFramework.SqlServer.dll
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\Newtonsoft.Json.dll
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\EntityFramework.xml
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\EntityFramework.SqlServer.xml
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\Newtonsoft.Json.xml
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\bin\Debug\NLog.xml
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.csprojResolveAssemblyReference.cache
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.FM_Main.resources
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.Properties.Resources.resources
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.csproj.GenerateResource.Cache
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.exe
+D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.pdb

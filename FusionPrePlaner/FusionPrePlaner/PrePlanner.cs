@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using NLog;
 using System.Data;
 using Newtonsoft.Json;
+using FusionPrePlaner.Algorithm;
 namespace FusionPrePlaner
 {
     class PrePlanner
@@ -75,6 +76,18 @@ namespace FusionPrePlaner
 
         private DataTable _dtAvai;
         private DataTable _dtUntouch;
+        private DataTable DT_FB;
+        private DataTable DT_REL;
+
+        public void get_FB(DataTable DT_FB)
+        {
+            this.DT_FB = DT_FB;
+        }
+
+        public void get_REL(DataTable DT_REL)
+        {
+            this.DT_REL = DT_REL;
+        }
 
         public DataTable DT_AvailIssues
         {
@@ -139,7 +152,10 @@ namespace FusionPrePlaner
             
             
             GetAllIssues();
-            //
+
+            PrePlan preplan = new PrePlan(DT_AvailIssues, DT_UntouchableIssues, new FeatureBuildChecker(), DT_FB,DT_REL);
+            preplan.Process(Sto.Name);
+
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
 
