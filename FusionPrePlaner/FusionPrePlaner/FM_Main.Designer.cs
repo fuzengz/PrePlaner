@@ -36,12 +36,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_STO = new System.Windows.Forms.DataGridView();
-            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_STO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Squad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_CA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Preplan = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.col_runstat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCountDown = new System.Windows.Forms.TextBox();
@@ -78,6 +72,13 @@
             this.timer1Sec = new System.Windows.Forms.Timer(this.components);
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.dgv_Release = new System.Windows.Forms.DataGridView();
+            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_STO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Squad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_CA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Preplan = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.col_runstat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tp_main.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -178,6 +179,7 @@
             this.col_STO,
             this.col_Squad,
             this.col_CA,
+            this.Code,
             this.col_Preplan,
             this.col_runstat});
             this.dgv_STO.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -191,51 +193,6 @@
             this.dgv_STO.TabIndex = 0;
             this.dgv_STO.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_STO_CellContentClick);
             this.dgv_STO.SelectionChanged += new System.EventHandler(this.dgv_STO_SelectionChanged);
-            // 
-            // selected
-            // 
-            this.selected.DataPropertyName = "Selected";
-            this.selected.HeaderText = "";
-            this.selected.Name = "selected";
-            // 
-            // col_STO
-            // 
-            this.col_STO.DataPropertyName = "Name";
-            this.col_STO.HeaderText = "STO";
-            this.col_STO.Name = "col_STO";
-            this.col_STO.ReadOnly = true;
-            // 
-            // col_Squad
-            // 
-            this.col_Squad.DataPropertyName = "Squad";
-            this.col_Squad.HeaderText = "Squad";
-            this.col_Squad.Name = "col_Squad";
-            this.col_Squad.ReadOnly = true;
-            // 
-            // col_CA
-            // 
-            this.col_CA.DataPropertyName = "CA";
-            this.col_CA.HeaderText = "CA";
-            this.col_CA.Name = "col_CA";
-            this.col_CA.ReadOnly = true;
-            // 
-            // col_Preplan
-            // 
-            this.col_Preplan.DataPropertyName = "Str_Run_Stat";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "Run";
-            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
-            this.col_Preplan.HeaderText = "Run";
-            this.col_Preplan.Name = "col_Preplan";
-            this.col_Preplan.ReadOnly = true;
-            // 
-            // col_runstat
-            // 
-            this.col_runstat.DataPropertyName = "Run_Stat";
-            this.col_runstat.HeaderText = "Run Stat";
-            this.col_runstat.Name = "col_runstat";
-            this.col_runstat.ReadOnly = true;
-            this.col_runstat.Visible = false;
             // 
             // panel1
             // 
@@ -630,6 +587,58 @@
             this.dgv_Release.Size = new System.Drawing.Size(228, 288);
             this.dgv_Release.TabIndex = 1;
             // 
+            // selected
+            // 
+            this.selected.DataPropertyName = "Selected";
+            this.selected.HeaderText = "";
+            this.selected.Name = "selected";
+            // 
+            // col_STO
+            // 
+            this.col_STO.DataPropertyName = "Name";
+            this.col_STO.HeaderText = "STO";
+            this.col_STO.Name = "col_STO";
+            this.col_STO.ReadOnly = true;
+            // 
+            // col_Squad
+            // 
+            this.col_Squad.DataPropertyName = "Squad";
+            this.col_Squad.HeaderText = "Squad";
+            this.col_Squad.Name = "col_Squad";
+            this.col_Squad.ReadOnly = true;
+            // 
+            // col_CA
+            // 
+            this.col_CA.DataPropertyName = "CA";
+            this.col_CA.HeaderText = "CA";
+            this.col_CA.Name = "col_CA";
+            this.col_CA.ReadOnly = true;
+            // 
+            // Code
+            // 
+            this.Code.DataPropertyName = "Code";
+            this.Code.HeaderText = "Code";
+            this.Code.Name = "Code";
+            this.Code.ReadOnly = true;
+            // 
+            // col_Preplan
+            // 
+            this.col_Preplan.DataPropertyName = "Str_Run_Stat";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = "Run";
+            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
+            this.col_Preplan.HeaderText = "Run";
+            this.col_Preplan.Name = "col_Preplan";
+            this.col_Preplan.ReadOnly = true;
+            // 
+            // col_runstat
+            // 
+            this.col_runstat.DataPropertyName = "Run_Stat";
+            this.col_runstat.HeaderText = "Run Stat";
+            this.col_runstat.Name = "col_runstat";
+            this.col_runstat.ReadOnly = true;
+            this.col_runstat.Visible = false;
+            // 
             // FM_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -680,12 +689,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.CheckBox chkSelectAllSTO;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn selected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_STO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Squad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_CA;
-        private System.Windows.Forms.DataGridViewButtonColumn col_Preplan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_runstat;
         private System.Windows.Forms.Button btnRunAll;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label2;
@@ -715,6 +718,13 @@
         private System.Windows.Forms.DataGridView dgv_UntouchableIssues;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DataGridView dgv_Release;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_STO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Squad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_CA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Code;
+        private System.Windows.Forms.DataGridViewButtonColumn col_Preplan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_runstat;
     }
 }
 

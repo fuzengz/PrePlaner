@@ -4724,3 +4724,222 @@
 2018-07-16 17:27:43.1980|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
 2018-07-16 17:30:45.5096|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
 2018-07-16 17:31:19.5712|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-17 14:00:27.2442|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-17 14:10:31.6957|INFO|PrePlan|ExecuteAlgorithm for STO FZ04
+2018-07-17 14:10:31.6957|INFO|PrePlan|ExecuteAlgorithm for STO FZ03
+2018-07-17 14:10:31.6957|INFO|PrePlan|ExecuteAlgorithm for STO FZ02
+2018-07-17 14:10:31.6957|INFO|PrePlan|ExecuteAlgorithm for STO FZ01
+2018-07-17 14:10:32.7138|INFO|PrePlan|ExecuteAlgorithm for STO FZ05
+2018-07-17 14:10:33.7679|INFO|PrePlan|ExecuteAlgorithm for STO FZ06
+2018-07-17 14:10:34.2999|INFO|PrePlan|ExecuteAlgorithm for STO FZ07
+2018-07-17 14:10:34.8320|INFO|PrePlan|ExecuteAlgorithm for STO FZ08
+2018-07-17 14:10:35.3460|INFO|PrePlan|ExecuteAlgorithm for STO FZ09
+2018-07-17 14:10:36.3461|INFO|PrePlan|ExecuteAlgorithm for STO FZ10
+2018-07-17 14:10:37.3462|INFO|PrePlan|ExecuteAlgorithm for STO FZ11
+2018-07-17 14:10:38.3543|INFO|PrePlan|ExecuteAlgorithm for STO FZ12
+2018-07-17 14:10:39.3494|INFO|PrePlan|ExecuteAlgorithm for STO FZ14
+2018-07-17 14:10:39.8525|INFO|PrePlan|ExecuteAlgorithm for STO FZ15
+2018-07-17 14:10:40.8496|INFO|PrePlan|ExecuteAlgorithm for STO FZ16
+2018-07-17 14:10:41.8497|INFO|PrePlan|ExecuteAlgorithm for STO FZ17
+2018-07-17 14:10:42.8488|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-17 14:10:43.8499|INFO|PrePlan|ExecuteAlgorithm for STO FZ21
+2018-07-17 14:10:44.2979|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:44.2979|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:44.2979|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:44.2979|INFO|PrePlan|ExecuteAlgorithm for STO FZ23
+2018-07-17 14:10:44.2979|INFO|PrePlan|ExecuteAlgorithm for STO FZ22
+2018-07-17 14:10:44.2979|INFO|PrePlan|ExecuteAlgorithm for STO FZ30
+2018-07-17 14:10:44.3409|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:44.3409|INFO|PrePlan|ExecuteAlgorithm for STO FZ50
+2018-07-17 14:10:44.5549|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:44.5659|INFO|PrePlan|ExecuteAlgorithm for STO FZ51
+2018-07-17 14:10:45.0910|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:45.0910|INFO|PrePlan|ExecuteAlgorithm for STO FZ52
+2018-07-17 14:10:45.5980|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:45.5980|INFO|PrePlan|ExecuteAlgorithm for STO FZ53
+2018-07-17 14:10:46.0551|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:46.0551|INFO|PrePlan|ExecuteAlgorithm for STO FZ54
+2018-07-17 14:10:46.8512|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:46.8512|INFO|PrePlan|ExecuteAlgorithm for STO FZ55
+2018-07-17 14:10:47.0882|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:47.0882|INFO|PrePlan|ExecuteAlgorithm for STO FZ56
+2018-07-17 14:10:47.8583|INFO|PrePlan|ExecuteAlgorithm for STO FZ40
+2018-07-17 14:10:48.0843|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:48.0843|INFO|PrePlan|ExecuteAlgorithm for STO FZ41
+2018-07-17 14:10:49.3494|INFO|PrePlan|ExecuteAlgorithm for STO FZ42
+2018-07-17 14:10:49.4154|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:49.4154|INFO|PrePlan|ExecuteAlgorithm for STO FZ60
+2018-07-17 14:10:50.0725|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:50.6045|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:51.5206|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:52.5597|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:54.6850|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:55.3390|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:55.8691|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:55.9171|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-17 14:10:55.9531|ERROR|PrePlan|Data error:{"errorMessages":["Error in JQL Query: Expecting either a value, list or function but got 'order'. You must surround 'order' in quotation marks to use it as a value. (line 1, character 12)"],"errors":{}}
+2018-07-19 11:52:56.0643|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 14:13:05.8742|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 14:23:06.3212|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 14:33:06.6392|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 14:43:06.9493|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 14:53:07.2923|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 15:03:07.5723|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 15:13:07.9203|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 15:23:08.2324|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 15:33:08.5664|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 15:43:08.8514|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 15:53:09.1984|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 16:03:09.5175|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 16:13:09.8415|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 16:23:10.1495|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 16:33:10.4955|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 16:43:10.8346|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 16:53:11.1166|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 17:03:11.4316|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 17:13:11.7416|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 17:23:12.0767|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 17:33:12.4197|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 17:43:12.7397|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 17:53:13.0528|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 18:03:13.8938|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 18:13:14.2299|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 18:23:14.9309|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 18:33:15.6964|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 18:43:15.9307|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 18:53:16.1957|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 19:03:16.4743|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 19:13:16.8173|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 19:23:17.1113|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 19:33:17.4323|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 19:43:17.7544|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 19:53:18.0874|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 20:03:18.4084|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 20:13:18.7314|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 20:23:19.0355|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 20:33:19.3425|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 20:43:19.6675|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 20:53:19.9935|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 21:03:20.3006|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 21:13:20.6306|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 21:23:20.9626|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 21:33:21.2587|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 21:43:21.5727|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 21:53:21.9157|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 22:03:22.2347|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 22:13:22.5268|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 22:23:22.8448|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 22:33:23.1818|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 22:43:23.5068|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 22:53:23.8019|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 23:03:24.1569|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 23:13:24.4669|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 23:23:24.7689|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 23:33:25.0860|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 23:43:25.3850|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-19 23:53:25.7030|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 00:03:26.0450|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 00:13:26.3411|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 00:23:26.6741|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 00:33:27.0031|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 00:43:27.3021|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 00:53:27.6192|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 01:03:27.9262|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 01:13:28.2732|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 01:23:28.5742|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 01:33:28.8763|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 01:43:29.2053|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 01:53:29.5253|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 02:03:29.8313|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 02:13:30.1414|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 02:23:30.4574|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 02:33:30.8004|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 02:43:31.1024|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 02:53:31.4135|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 03:03:31.7285|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 03:13:32.0545|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 03:23:32.4016|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 03:33:32.7888|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 03:43:32.8791|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 03:53:33.0954|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 04:03:33.3474|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 04:13:33.6024|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 04:23:33.8594|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 04:33:34.1164|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 04:43:34.3804|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 04:53:34.6314|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 05:03:34.9014|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 05:13:35.1644|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 05:23:35.3994|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 05:33:35.6804|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 05:43:35.9194|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 05:53:36.2214|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 06:03:36.4464|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 06:13:36.6894|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 06:23:36.9674|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 06:33:37.2364|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 06:43:37.4674|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 06:53:37.7494|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 07:03:37.9884|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 07:13:38.2394|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 07:23:38.5114|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 07:33:38.7994|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 07:43:39.0614|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 07:53:39.2844|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 08:03:39.5364|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 08:13:39.8184|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 08:23:40.0744|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 08:33:40.3284|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 08:43:40.5704|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 08:53:40.8374|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 09:03:41.1224|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 09:13:41.3704|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 09:23:41.6104|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 09:33:41.8594|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 09:43:42.1294|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 09:53:42.4264|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 10:03:42.6694|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 10:13:42.9224|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 10:23:43.1874|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 10:33:43.4854|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 10:43:43.7444|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 10:53:44.0274|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 11:03:44.2874|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 11:13:44.5424|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 11:23:44.8154|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 11:33:45.0604|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 11:43:45.3454|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 11:53:45.6004|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 12:03:45.8694|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 12:13:46.1964|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 12:23:46.4064|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 12:33:47.1845|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 12:43:47.7059|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 12:53:48.1208|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 13:03:48.4588|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 13:13:48.9498|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 13:23:49.2649|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 13:33:49.6759|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 13:43:50.0369|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 13:53:50.3089|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 14:03:50.6290|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 14:13:50.9470|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 14:23:51.2690|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 14:33:51.5781|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 14:43:51.9001|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 14:53:52.2111|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 15:03:52.5281|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 15:13:53.2812|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 15:23:53.5932|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 15:33:53.7472|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 15:43:54.0633|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 15:53:54.4753|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 16:03:54.8083|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 16:13:55.1263|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 16:23:55.2284|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 16:33:55.5454|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 16:43:55.8594|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 16:53:56.6955|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 17:03:57.0255|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-20 17:13:57.3565|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
+2018-07-23 09:45:06.1548|INFO|PrePlan|ExecuteAlgorithm for STO FZ18
