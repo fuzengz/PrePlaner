@@ -59,8 +59,8 @@ namespace FusionPrePlaner
                 var obj = dgv_STO.SelectedRows[0].Cells["Code"].Value;
                 string teamcode = obj == null ? null : obj.ToString();
                 var preplanner = PrePlanner.GetPrePlannerFromTeamCode(teamcode);
-                preplanner.get_FB(DT_FB);
-                preplanner.get_REL(DT_Rel);
+              //  preplanner.get_FB(DT_FB);
+             //   preplanner.get_REL(DT_Rel);
                 if (preplanner != null)
                 {
                     bsAvail = new BindingSource();
@@ -380,12 +380,13 @@ namespace FusionPrePlaner
            
         }
 
-        public DataTable DT_FB;
-        public DataTable DT_Rel;
+       // public DataTable DT_FB;
+       // public DataTable DT_Rel;
 
         private void LoadFB()
         {
             dgv_FBList.DataSource = null; //每次打开清空内容
+            /*
             DataTable dt_xls_dates = FeatureBuild.excelToDataSet("FZM FBP tool.xlsb", "Feature Build,Start Date,End Date", "Dates");                         //调用GetData方发写上Excel文件所在的路径，这样就能获取到Excel表里面的数据了                                                                                                                              
             DataTable dt_xls_cap = FeatureBuild.excelToDataSet("FZM FBP tool.xlsb", "Capacities,FT_FZ01_Dev,FT_FZ02_Dev", "cap");                         //调用GetData方发写上Excel文件所在的路径，这样就能获取到Excel表里面的数据了        
          
@@ -394,8 +395,10 @@ namespace FusionPrePlaner
             DT_Rel = FeatureBuild.FormatDataTableRelease(dt_xls_dates);
 
             DT_FB = FeatureBuild.MergeDataTable(dt_dates, dt_cap);
-            dgv_FBList.DataSource = DT_FB;
-            dgv_Release.DataSource = DT_Rel;
+            */
+            PrePlanner.load_fb();
+            dgv_FBList.DataSource = PrePlanner.DT_FB;
+            dgv_Release.DataSource = PrePlanner.DT_REL;
            
         }
         

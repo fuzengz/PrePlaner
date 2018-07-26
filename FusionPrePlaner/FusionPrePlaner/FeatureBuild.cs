@@ -98,12 +98,20 @@ namespace FusionPrePlaner
             dtDistinct.Columns[0].ColumnName = "Release";
             dtDistinct.Columns[1].ColumnName = "Start FB";
             dtDistinct.Columns[2].ColumnName = "End FB";
+
+            foreach(DataRow row in dtDistinct.Rows)
+            {
+                row["Start FB"] = row["Start FB"].ToString().Replace("fb", string.Empty).Replace(".", string.Empty).Trim();
+                row["End FB"] = row["End FB"].ToString().Replace("fb", string.Empty).Replace(".", string.Empty).Trim();
+            }
             return dtDistinct;
         }
 
 
         public static DataTable FormatDataTableCap(DataTable dtCap)
         {
+
+
 
             for (int j = dtCap.Columns.Count - 1; j >= 0; j--)
             {
@@ -138,6 +146,7 @@ namespace FusionPrePlaner
             for (int j = 1; j < dtDates.Columns.Count; j++)
             {
                 dtCap.Columns.Add(dtDates.Columns[j].ColumnName, dtDates.Columns[j].DataType);
+               
             }
             for (int i = 0; i < dtCap.Rows.Count; i++)
             {
@@ -150,18 +159,22 @@ namespace FusionPrePlaner
                 }
 
             }
+        
             for (int i = dtCap.Rows.Count -1; i >=0; i--)
             {
                 DateTime dtStart, dtEnd;
                 DateTime dtnow = System.DateTime.Now;
                 try
                 {
+                    
+                    
                     dtStart = (DateTime)dtCap.Rows[i]["Start Date"];
                     dtEnd = (DateTime)dtCap.Rows[i]["End Date"];
-                    if (dtStart < dtnow && dtEnd <dtnow)
+                    if ( dtEnd <dtnow.AddMonths(-1))
                     {
                         dtCap.Rows.RemoveAt(i);
                     }
+                    
                 }
                 catch
                 {
@@ -175,6 +188,9 @@ namespace FusionPrePlaner
 
                 dtCap.Rows[i]["FB"] = dtCap.Rows[i]["FB"].ToString().Replace("fb", string.Empty).Replace(".", string.Empty);
             }
+            DataColumn[] keys = new DataColumn[1];
+            keys[0] = dtCap.Columns["FB"];
+            dtCap.PrimaryKey = keys;
             return dtCap;
 
         }

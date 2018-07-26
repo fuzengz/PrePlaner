@@ -20,7 +20,30 @@ namespace FusionPrePlaner
         public string value { get; set; }
         public string id { get; set; }
     }
-
+    public class IssueType
+    {
+        public string self { get; set; }
+        public string id { get; set; }
+        public string description { get; set; }
+        public string iconUrl { get; set; }
+        public string name { get; set; }
+        public string subtask { get; set; }
+        public int avatarId { get; set; }
+    }
+    public class OutwardIssue
+    {
+        public string id { get; set; }
+        public string key { get; set; }
+        public string self { get; set; }
+        public Fields fields { get; set; }
+    }
+    public class IssuelinksItem
+    {
+        public string id { get; set; }
+        public string self { get; set; }
+        public Type type { get; set; }
+        public OutwardIssue outwardIssue { get; set; }
+    }
     public class StatusCategory
     {
         public string self { get; set; }
@@ -42,6 +65,8 @@ namespace FusionPrePlaner
 
     public class Fields
     {
+      //  public List<IssuelinksItem> issuelinks { get; set; }
+        public IssueType issuetype { get; set; }
         public string customfield_29790 { get; set; }
         public string customfield_38719 { get; set; }
         public string customfield_38693 { get; set; }
@@ -52,6 +77,8 @@ namespace FusionPrePlaner
         public Timetracking timetracking { get; set; }
         public List<Customfield> customfield_38725 { get; set; }
         public Status status { get; set; }
+        public string parent { get; set; }
+        
     }
 
     public class Issues
@@ -77,6 +104,7 @@ namespace FusionPrePlaner
         public string Key = null;
         public string FP = null;
         public string ItemID = null;
+        public string IssueType = null;
         public string UnifiedPriority = null;
         public string ScrumTeamOwner = null;
     
@@ -88,7 +116,7 @@ namespace FusionPrePlaner
 
         public string OriginalEffort = null;
         public string RemWorkEffort = null;
-
+        public string Parent = null;
 
         public TableObject(Issues issue)
         {
@@ -96,11 +124,13 @@ namespace FusionPrePlaner
             Key = issue.key;
             FP = issue.fields.customfield_37381;
             ItemID = issue.fields.customfield_38702;
+            IssueType = issue.fields.issuetype.name;
             UnifiedPriority = issue.fields.customfield_38719;
             ScrumTeamOwner = issue.fields.customfield_29790;
             Status = issue.fields.status.name;
             StartFB = issue.fields.customfield_38694; ;
             EndFB = issue.fields.customfield_38693;
+            
             try
             {
                 TargetFB = issue.fields.customfield_38751.value;

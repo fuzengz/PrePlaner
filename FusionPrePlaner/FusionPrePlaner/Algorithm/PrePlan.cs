@@ -32,7 +32,10 @@ namespace FusionPrePlaner.Algorithm
             fb = fbChecker.GetNextFb(fbChecker.GetCurrentFeatureBuild());
     
             List <DataRow> list = PrepareItemList(team);
-            while (list.Count>0&& HasCapacityEntry(team, fb))
+
+            //
+
+            while (list !=null && list.Count>0&& HasCapacityEntry(team, fb))
             {
                 double frame = GetAvaliableFrame(team, fb, GetTeamCapacity(team, fb));
 
@@ -69,13 +72,19 @@ namespace FusionPrePlaner.Algorithm
 
         private List<DataRow> PrepareItemList(string team)
         {
-            List<DataRow> list = AvailIssues
-                .Select("STO=" + ScrumTeamOwner.DicTeamToCode[team] + "and Status = 'Open' ")
-                .ToList();
+            //TODO, here may throw a exception , null to list
+            try
+            {
+                List<DataRow> list = AvailIssues.Select(/*"STO=" + ScrumTeamOwner.DicTeamToCode[team] + "and Status = 'Open' "*/"Assigned is NULL").ToList();
 
-            list.Sort(SortItemListByPriority);
-         
-            return list;
+                list.Sort(SortItemListByPriority);
+
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private int SortItemListByPriority(DataRow row_a,DataRow row_b)
@@ -91,29 +100,43 @@ namespace FusionPrePlaner.Algorithm
 
         private bool HasCapacityEntry(string team,string fb)
         {
-            //to be finished
-            return true;
+            try
+            {
+                return string.IsNullOrEmpty(DT_FB.Select("fb=" + fb)[0][team].ToString()) == false;
+                
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
         private double GetTeamCapacity(String team, string fb)
         {
-            string fb_column = fb;
-            fb_column=fb_column.Remove(0,2).Remove(2, 1);
-            return Convert.ToDouble(DT_FB.Select("fb=" + fb_column)[0][team].ToString());
+           
+            return Convert.ToDouble(DT_FB.Select("fb=" + fb)[0][team].ToString());
         }
 
         private double GetAvaliableFrame(string team,string fb,double capacity)
         {
-            string fb_column = fb;
+           
             double capacity_untouchable;
             capacity_untouchable = 0;
-            fb_column = fb_column.Remove(0, 2).Remove(2, 1);
+       
             List<DataRow> list = UntouchableIssues
-                .Select("[Target FB]= " + fb_column + " and STO= " + ScrumTeamOwner.DicTeamToCode[team])
+                .Select("[Target FB]= " + fb + " and STO= " + ScrumTeamOwner.DicTeamToCode[team])
                 .ToList();
             foreach(DataRow row in list)
             {
                 string eff = row["Rem Eff"].ToString();
                 capacity_untouchable += Convert.ToDouble(eff.Remove(eff.Length-1,1));
+            }
+
+            list = AvailIssues.Select("[Target FB]= " + fb + " and STO= " + ScrumTeamOwner.DicTeamToCode[team] + " and Assigned is not NULL" ).ToList();
+            foreach (DataRow row in list)
+            {
+                string eff = row["Rem Eff"].ToString();
+                capacity_untouchable += Convert.ToDouble(eff.Remove(eff.Length - 1, 1));
             }
             return capacity- capacity_untouchable;
         }
@@ -124,9 +147,9 @@ namespace FusionPrePlaner.Algorithm
 
             if (upperBound == "") return false;
 
-            upperBound = r["End FB"].ToString()
-                .Insert(0,"fb")
-                .Insert(4,".");
+            upperBound = r["End FB"].ToString();
+                //.Insert(0,"fb")
+                //.Insert(4,".");
 
             return fbChecker.isValid(upperBound) && !fbChecker.isLater(upperBound, fb);
         }
@@ -177,19 +200,22 @@ namespace FusionPrePlaner.Algorithm
             string upperBound = r["End FB"].ToString();
 
             if(lowerBound!="")
-            {   lowerBound = lowerBound
-                    .Insert(0, "fb")
-                    .Insert(4, ".");
+            {
+               // lowerBound = lowerBound;
+                   // .Insert(0, "fb")
+                   // .Insert(4, ".");
                 if (fbChecker.isValid(lowerBound) && fbChecker.isFromFuture(lowerBound))
                     isTooEarly = fbChecker.isEarlier(fb, lowerBound);
             }
 
             if (upperBound != "")
             {
+                /*
                 upperBound = upperBound
                     .Insert(0, "fb")
                     .Insert(4, ".");
-
+                    */
+                
                 if (fbChecker.isValid(upperBound) && fbChecker.isFromFuture(upperBound))
                     isTooLate = fbChecker.isLater(fb, upperBound);
             }
@@ -215,8 +241,9 @@ namespace FusionPrePlaner.Algorithm
         {
             
             string temp = row["Key"].ToString();
-            AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString()+"'")[0]["Target FB"] = fb.Remove(0, 2).Remove(2, 1);
-           // Console.WriteLine("remove " + row["Item ID"].ToString() +"   "+ fb);
+            AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString()+"'")[0]["Target FB"] = fb;
+            AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Assigned"] = "M";
+            // Console.WriteLine("remove " + row["Item ID"].ToString() +"   "+ fb);
             list.Remove(row);
         }
 

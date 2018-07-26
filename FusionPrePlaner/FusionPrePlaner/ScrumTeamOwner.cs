@@ -110,6 +110,7 @@ namespace FusionPrePlaner
                 {
                     _dicTeamToCode = new Dictionary<string, string>();
                     _dicTeamToCode.Add("FZ18", "1312");
+                    _dicTeamToCode.Add("FZ40", "1412");
                 }
                 return _dicTeamToCode;
             }

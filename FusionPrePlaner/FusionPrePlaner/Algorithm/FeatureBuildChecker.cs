@@ -34,6 +34,7 @@ namespace FusionPrePlaner.Algorithm
         public virtual bool isFromPast(String featureBuild)
         {
             ValidateExistenceOfFbIfNotThrow(featureBuild);
+ 
             return FeatureBuildDate.featureBuildDates[featureBuild].EndTime < DateTime.Now;
         }
 
@@ -119,7 +120,7 @@ namespace FusionPrePlaner.Algorithm
         public string GetNextFb(string fb)
         {
             int month = int.Parse(fb.Substring(fb.Length - 2));
-            int year = int.Parse(fb.Substring(2, 2));
+            int year = int.Parse(fb.Substring(0, 2));
 
             ++month;
             if (month == 13)
@@ -134,7 +135,7 @@ namespace FusionPrePlaner.Algorithm
         public string GetPreviousFb(string fb)
         {
             int month = int.Parse(fb.Substring(fb.Length - 2));
-            int year = int.Parse(fb.Substring(2, 2));
+            int year = int.Parse(fb.Substring(0, 2));
 
             --month;
             if (month == 0)
@@ -234,17 +235,20 @@ namespace FusionPrePlaner.Algorithm
         public virtual string GetParkedFbForThisYear()
         {
             var year = DateTime.Now.Year.ToString();
-            return "fb" + year.Substring(year.Length - 2) + "." + "park";
+            return  year.Substring(year.Length - 2) + "." + "park";
+            //return "fb" + year.Substring(year.Length - 2) + "." + "park";
         }
 
         public string FbFromNumbers(int month, int year)
         {
-            return "fb" + year + "." + month.ToString("00");
+            return year + month.ToString("00");
+            //return "fb" + year + "." + month.ToString("00");
         }
 
         public int GetShortYearFromFb(string fb)
         {
-            var s = fb.Substring(2, 2);
+            //var s = fb.Substring(2, 2);
+            var s = fb.Substring(0, 2);
             int y = 0;
             int.TryParse(s, out y);
             return y;
@@ -284,14 +288,17 @@ namespace FusionPrePlaner.Algorithm
         {
             var year = date.Year.ToString();
             var month = date.Month.ToString("00");
-
-            return "fb" + year.Substring(year.Length - 2) + "." + month;
+            return year.Substring(year.Length - 2)  + month;
+            //return "fb" + year.Substring(year.Length - 2) + "." + month;
         }
 
         private void ValidateExistenceOfFbIfNotThrow(string featureBuild)
         {
+            
+            
             if (!FeatureBuildDate.featureBuildDates.ContainsKey(featureBuild))
                 throw new Exception("Feature build: " + featureBuild + " is not specified in featurebuilddates");
+            
         }
     }
 }
