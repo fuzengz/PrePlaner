@@ -72,7 +72,7 @@ namespace FusionPrePlaner
                     _sto_allIssues.Columns.Add(new DataColumn("Ori Eff", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Rem Eff", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Parent", typeof(string)));
-                    _sto_allIssues.Columns.Add(new DataColumn("Assigned", typeof(string)));
+                   
                 }
                 return _sto_allIssues;
             }
@@ -82,6 +82,44 @@ namespace FusionPrePlaner
         private DataTable _dtAvai;
         private DataTable _dtUntouch;
         private DataTable _dtCA;
+        public DataTable DT_AvailIssues
+        {
+            get
+            {
+                if (_dtAvai == null)
+                {
+                    _dtAvai = STO_AllIssues.Clone();
+                    _dtAvai.Columns.Add(new DataColumn("Assigned", typeof(string)));
+                    _dtAvai.Columns.Add(new DataColumn("Note", typeof(string)));
+                }
+                return _dtAvai;
+            }
+        }
+        public DataTable DT_UntouchableIssues
+        {
+            get
+            {
+                if (_dtUntouch == null)
+                {
+                    _dtUntouch = STO_AllIssues.Clone();
+
+                }
+                return _dtUntouch;
+            }
+        }
+        public DataTable DT_CA
+        {
+            get
+            {
+                if (_dtCA == null)
+                {
+                    _dtCA = STO_AllIssues.Clone();
+
+                }
+                return _dtCA;
+            }
+        }
+
 
         private static DataTable _dtFB;
         private static DataTable _dtRel;
@@ -124,62 +162,15 @@ namespace FusionPrePlaner
             DT_REL = FeatureBuild.FormatDataTableRelease(dt_xls_dates);
             DT_FB = FeatureBuild.MergeDataTable(dt_dates, dt_cap);
         }
-        /*
-
-        public void get_FB(DataTable DT_FB)
-        {
-            this.DT_FB = DT_FB;
-        }
-
-        public void get_REL(DataTable DT_REL)
-        {
-            this.DT_REL = DT_REL;
-        }
-        */
-        public DataTable DT_AvailIssues
-        {
-            get
-            {
-                if (_dtAvai == null)
-                {
-                    _dtAvai = STO_AllIssues.Clone();
-
-                }
-                return _dtAvai;
-            }
-        }
-        public DataTable DT_UntouchableIssues
-        {
-            get
-            {
-                if (_dtUntouch == null)
-                {
-                    _dtUntouch = STO_AllIssues.Clone();
-
-                }
-                return _dtUntouch;
-            }
-        }
-        public DataTable DT_CA
-        {
-            get
-            {
-                if (_dtCA == null)
-                {
-                    _dtCA = STO_AllIssues.Clone();
-
-                }
-                return _dtCA;
-            }
-        }
+     
+        
 
         public PrePlanner(ScrumTeamOwner sto)
         {
             Sto = sto;
+            fbChecker = new FeatureBuildChecker();
         }
         private delegate void ProcessSTO_delegate();
-
-      
         public void AsyncProcessSTO()
         {
             ProcessSTO_delegate dele = new ProcessSTO_delegate(ProcessSTO);
@@ -200,6 +191,259 @@ namespace FusionPrePlaner
             }
 
         }
+        private string fb;
+        private FeatureBuildChecker fbChecker;
+        private List<DataRow> PrepareItemList(string team)
+        {
+
+            try
+            {
+                List<DataRow> list = DT_AvailIssues.Select(/*"STO=" + ScrumTeamOwner.DicTeamToCode[team] + "and Status = 'Open' "*/"Assigned is NULL").ToList();
+
+                list.Sort(SortItemListByPriority);
+
+                return list;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private int SortItemListByPriority(DataRow row_a, DataRow row_b)
+        {
+            if (row_a["Priority"].ToString() == "") return 1;
+            if (row_b["Priority"].ToString() == "") return -1;
+            if ((Convert.ToDouble(row_a["Priority"].ToString()) > Convert.ToDouble(row_b["Priority"].ToString())))
+            {
+                return 1;
+            }
+            return -1;
+        }
+
+        private bool HasCapacityEntry(string team, string fb)
+        {
+            try
+            {
+                return string.IsNullOrEmpty(DT_FB.Select("fb=" + fb)[0][team].ToString()) == false;
+
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        private double GetTeamCapacity(String team, string fb)
+        {
+
+            return Convert.ToDouble(DT_FB.Select("fb=" + fb)[0][team].ToString());
+        }
+
+        private double GetAvaliableFrame(string team, string fb, double capacity)
+        {
+
+            double capacity_untouchable;
+            capacity_untouchable = 0;
+
+            List<DataRow> list = DT_UntouchableIssues
+                .Select("[Target FB]= " + fb + " and STO= " + ScrumTeamOwner.DicTeamToCode[team])
+                .ToList();
+            foreach (DataRow row in list)
+            {
+                string eff = row["Rem Eff"].ToString();
+                capacity_untouchable += Convert.ToDouble(eff.Remove(eff.Length - 1, 1));
+            }
+
+            list = DT_AvailIssues.Select("[Target FB]= " + fb + " and STO= " + ScrumTeamOwner.DicTeamToCode[team] + " and Assigned is not NULL").ToList();
+            foreach (DataRow row in list)
+            {
+                string eff = row["Rem Eff"].ToString();
+                capacity_untouchable += Convert.ToDouble(eff.Remove(eff.Length - 1, 1));
+            }
+            return capacity - capacity_untouchable;
+        }
+        public bool IsOverloadAllowed(DataRow r, string fb, string team)
+        {
+            string upperBound = r["End FB"].ToString();
+
+            if (upperBound == "") return false;
+
+            upperBound = r["End FB"].ToString();
+
+            return fbChecker.isValid(upperBound) && !fbChecker.isLater(upperBound, fb);
+        }
+
+        private bool AppliesToRow(DataRow r, string team)
+        {
+            return true;
+        }
+        private DataRow GetFirstItemOtherwiseMoveFb(List<DataRow> list, string team)
+        {
+            if (!list.Any(r => DoesItemApplyToThisFb(r, team)))
+            {
+                fb = fbChecker.GetNextFb(fb);
+                return default(DataRow);
+            }
+
+
+            return list.First(r => DoesItemApplyToThisFb(r, team));
+        }
+
+        private bool DoesItemApplyToThisFb(DataRow row, string team)
+        {
+            // return FbFitsInFeatureReleaseRange(row)&& FitsInBounds(row,fb);
+            return FbFitsInFeatureReleaseRange(row) && CanBeAssignedToFb(row, fb, team);
+        }
+
+        private bool FbFitsInFeatureReleaseRange(DataRow row)
+        {
+            string release = row["Entity REL"].ToString();
+            DataRow[] dr = DT_REL.Select("Release = '" + release + "'");
+
+            if (dr.Count() > 0)
+            {
+                List<DataRow> releaseItem = dr.ToList();
+                var startFb = releaseItem[0]["Start FB"].ToString();
+                if (fbChecker.isValid(startFb))
+                    return !fbChecker.isEarlier(fb, startFb);
+            }
+
+            return true;
+        }
+
+        public bool CanBeAssignedToFb(DataRow r, string fb, string team)
+        {
+            return FitsInBounds(r, fb) && MeetsEtInboundDependency(r, fb) && MeetsSeEfsInboundDependency(r, fb);
+        }
+        private bool MeetsEtInboundDependency(DataRow row, string fb)
+        {
+            /*
+            if (row.FeatureType.IsEt && row.Status.IsScInternal && row.HasParent(backlog))
+            {
+                var devSiblings = row.Parent(backlog).Children(backlog).Where(item => item.Status.IsScInternal && !item.FeatureType.IsEt && fbChecker.isValid(item[Names.Development.TargetFb].Value));
+                return devSiblings.All(item => fbChecker.isEarlier(item[Names.Development.TargetFb].Value, fb));
+            }
+            */
+            return true;
+        }
+        private bool MeetsSeEfsInboundDependency(DataRow r, string fb)
+        {
+            /*
+            var efsFb = r[Names.SePlanning.FB_FZMEfsFBexit].Value;
+
+            if (fbChecker.isValid(efsFb))
+                return !fbChecker.isEarlier(fb, efsFb);
+                */
+
+
+
+            return true;
+        }
+        private bool FitsInBounds(DataRow r, string fb)
+        {
+            bool isTooEarly = false;
+            bool isTooLate = false;
+
+            string lowerBound = r["Start FB"].ToString();
+            string upperBound = r["End FB"].ToString();
+
+            if (lowerBound != "")
+            {
+
+                if (fbChecker.isValid(lowerBound) && fbChecker.isFromFuture(lowerBound))
+                    isTooEarly = fbChecker.isEarlier(fb, lowerBound);
+            }
+
+            if (upperBound != "")
+            {
+
+                if (fbChecker.isValid(upperBound) && fbChecker.isFromFuture(upperBound))
+                    isTooLate = fbChecker.isLater(fb, upperBound);
+            }
+
+            return !isTooEarly && !isTooLate;
+        }
+
+        private void PackFb(List<DataRow> list, string team, double frame, DataRow first)
+        {
+            if (FitsInTheFrame(team, frame, first) || IsOverloadAllowed(first, fb, team))
+                AssignFb(list, team, first, frame);
+            else
+            {
+                var gapFiller = list.FirstOrDefault(r => (FitsInTheFrame(team, frame, r) || IsOverloadAllowed(r, fb, team)) && DoesItemApplyToThisFb(r, team));
+                if (gapFiller != null)
+                    AssignFb(list, team, gapFiller, frame);
+                else
+                    fb = fbChecker.GetNextFb(fb);
+            }
+        }
+
+        private void AssignFb(List<DataRow> list, string team, DataRow row, double frame)
+        {
+
+            string temp = row["Key"].ToString();
+            DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Target FB"] = fb;
+            DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Status"] = "Scheduled";
+            DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Assigned"] = "M";
+
+            list.Remove(row);
+        }
+
+        private bool FitsInTheFrame(string team, double frame, DataRow row)
+        {
+            return (frame - getTotalEffort(row, team, fb)) >= 0;
+        }
+
+
+        private double getTotalEffort(DataRow row, string team, string fb)
+        {
+            string eff = row["Rem Eff"].ToString();
+            return Convert.ToDouble(eff.Remove(eff.Length - 1, 1));
+        }
+
+        private bool CanSplitTheWork(DataRow row)
+        {
+            //To be finished...
+            return false;
+        }
+        public void Process(string team)
+        {
+
+            fb = fbChecker.GetNextFb(fbChecker.GetCurrentFeatureBuild());
+
+            List<DataRow> list = PrepareItemList(team);
+
+
+            while (list != null && list.Count > 0 && HasCapacityEntry(team, fb))
+            {
+                double frame = GetAvaliableFrame(team, fb, GetTeamCapacity(team, fb));
+
+                List<DataRow> extraItems = list.Where(r => IsOverloadAllowed(r, fb, team)).ToList();
+
+                if (frame > 0 || extraItems.Count() > 0)
+                    SplitIfNeededAndFillTheFrame(list, frame, team);
+                else
+                    fb = fbChecker.GetNextFb(fb);
+
+            }
+
+        }
+
+        private void SplitIfNeededAndFillTheFrame(List<DataRow> list, double frame, string team)
+        {
+            double capacity = GetTeamCapacity(team, fb);
+            DataRow first = GetFirstItemOtherwiseMoveFb(list, fb);
+            if (first != null)
+            {
+                if (CanSplitTheWork(first))
+                {
+                    //To be finished...
+                }
+                PackFb(list, team, frame, first);
+            }
+        }
         private void ExecuteAlgorithm()
         {
            
@@ -207,23 +451,22 @@ namespace FusionPrePlaner
 
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
-            
-            
-            
             GetAllIssues();
-
-            PrePlan preplan = new PrePlan(DT_AvailIssues, DT_UntouchableIssues, new FeatureBuildChecker(), DT_FB,DT_REL);
-            preplan.Process(Sto.Name);
-
+            //PrePlan preplan = new PrePlan(DT_AvailIssues, DT_UntouchableIssues, new FeatureBuildChecker(), DT_FB,DT_REL);
+            //preplan.Process(Sto.Name);
+            Process(Sto.Name);
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
 
 
         }
+
+
+        
         JObject JOBJ_JSON = null;
         public  void GetAllIssues()
         {
-            //string strFilter = string.Format("search?jql=cf[29790]={0}%20and%20status=Open", Sto.Code) ;
+       
             JOBJ_JSON = null;
             STO_AllIssues.Rows.Clear();
             DT_AvailIssues.Rows.Clear();
@@ -310,7 +553,103 @@ namespace FusionPrePlaner
             return parentkey;
         }
 
-        
+        private DataTable _issue_lookup_table;
+        public DataTable Issue_Lookup_Table
+        {
+            get
+            {
+                if (_issue_lookup_table == null)
+                {
+                    _issue_lookup_table = STO_AllIssues.Clone();
+                    _issue_lookup_table.Columns.Add("JOBJECT");
 
+                }
+                return _issue_lookup_table;
+            }
+        }
+
+        private DataRow GetParentIssue(string parentkey)
+        {
+            var rows = Issue_Lookup_Table.Select("Key='" + parentkey + "'");
+            if (rows.Count() > 0)
+            {
+                return rows[0];
+            }
+            else //using Rest API get 
+            {
+                string strFilter = string.Format("search?jql=Key={0}", parentkey);
+                string strFields = "&fields=issuelinks,issuetype,customfield_37381,customfield_38702,customfield_38719,customfield_29790,status,customfield_38751,customfield_38694,customfield_38693,timetracking,customfield_38725";
+                string strOrderby = "+order+by+cf[38719]";
+                string strSearch = strFilter + strOrderby + strFields;
+                string url = System.IO.Path.Combine(Config.Instance.RestApi_Path, strSearch);
+
+                string json = RestAPIAccess.ExecuteRestAPI_CURL(Config.Instance.UserName, Config.Instance.Password, url, "GET", string.Empty);
+
+                try
+                {
+
+                    RootObject rb = JsonConvert.DeserializeObject<RootObject>(json);
+                    JObject JOBJ_JSON = JObject.Parse(json);
+                    if (rb.issues == null)
+                    {
+                        logger.Error("Data error:" + json);
+                        return null;
+                    }
+                    foreach (Issues issue in rb.issues)
+                    {
+                        TableObject newTabObj = new TableObject(issue);
+                        newTabObj.Parent = GetParentIssue(issue.key, JOBJ_JSON);
+                        if(string.IsNullOrEmpty(newTabObj.Parent))
+                        {
+                            return null;
+                        }
+                        
+                        return Issue_Lookup_Table.Rows.Add(newTabObj.Key, newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.IssueType, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
+                           newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort, newTabObj.Parent,JOBJ_JSON);
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
+                return null;
+            }
+
+            
+        }
+
+        private DataRow GetParentIssue_until_type(string parentkey, string issueType)  //Entity Item,  Competence Area ,  Epic
+        {
+            DataRow row = null;
+            do
+            {
+                row = GetParentIssue(parentkey);
+
+            } while (row != null || row["IssueType"].ToString() != issueType);
+
+            return row;
+        }
+
+        public DataRow[] Get_Relevant_CA(DataRow epicRow, string filter)
+        {
+            var EntityRow = GetParentIssue_until_type(epicRow["Parent"].ToString(), "Entity Item");
+            var jobj = (JObject)EntityRow["JOBJECT"];
+            var ilks = jobj.SelectToken("$.issues[?(@.key == '" + EntityRow["Key"] + "')]")["fields"]["issuelinks"];
+            string childKey = null;
+            foreach (var ilk in ilks)
+            {
+                try
+                {
+                    childKey = ilk["outwardIssue"]["key"].ToString();
+                    break;
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            return null;
+
+        }
     }
 }

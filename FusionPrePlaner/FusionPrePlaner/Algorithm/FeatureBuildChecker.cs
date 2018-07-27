@@ -35,7 +35,7 @@ namespace FusionPrePlaner.Algorithm
         {
             ValidateExistenceOfFbIfNotThrow(featureBuild);
  
-            return FeatureBuildDate.featureBuildDates[featureBuild].EndTime < DateTime.Now;
+            return FeatureBuildDate.FeatureBuildDates[featureBuild].EndTime < DateTime.Now;
         }
 
         public virtual bool isCurrent(String featureBuild)
@@ -47,7 +47,7 @@ namespace FusionPrePlaner.Algorithm
         {
             ValidateExistenceOfFbIfNotThrow(featureBuild);
 
-            return FeatureBuildDate.featureBuildDates[featureBuild].StartTime > DateTime.Now;
+            return FeatureBuildDate.FeatureBuildDates[featureBuild].StartTime > DateTime.Now;
         }
 
         public bool isEarlier(String featureBuild, String earlierThan)
@@ -55,7 +55,7 @@ namespace FusionPrePlaner.Algorithm
             ValidateExistenceOfFbIfNotThrow(featureBuild);
             ValidateExistenceOfFbIfNotThrow(earlierThan);
 
-            return FeatureBuildDate.featureBuildDates[featureBuild].StartTime < FeatureBuildDate.featureBuildDates[earlierThan].StartTime;
+            return FeatureBuildDate.FeatureBuildDates[featureBuild].StartTime < FeatureBuildDate.FeatureBuildDates[earlierThan].StartTime;
         }
 
         public bool isLater(String featureBuild, String laterThan)
@@ -63,7 +63,7 @@ namespace FusionPrePlaner.Algorithm
             ValidateExistenceOfFbIfNotThrow(featureBuild);
             ValidateExistenceOfFbIfNotThrow(laterThan);
 
-            return FeatureBuildDate.featureBuildDates[featureBuild].StartTime > FeatureBuildDate.featureBuildDates[laterThan].StartTime;
+            return FeatureBuildDate.FeatureBuildDates[featureBuild].StartTime > FeatureBuildDate.FeatureBuildDates[laterThan].StartTime;
         }
 
         public String AddFbs(String featureBuild, int shiftBy)
@@ -167,34 +167,34 @@ namespace FusionPrePlaner.Algorithm
 
         public int GetStartYear(string fb)
         {
-            return FeatureBuildDate.featureBuildDates[fb].StartTime.Year;
+            return FeatureBuildDate.FeatureBuildDates[fb].StartTime.Year;
         }
 
         public int GetEndYear(string fb)
         {
-            return FeatureBuildDate.featureBuildDates[fb].EndTime.Year;
+            return FeatureBuildDate.FeatureBuildDates[fb].EndTime.Year;
         }
 
         public int GetFirstWeekOfFb(string fb)
         {
-            var fbStartDate = FeatureBuildDate.featureBuildDates[fb].StartTime;
+            var fbStartDate = FeatureBuildDate.FeatureBuildDates[fb].StartTime;
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(fbStartDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
         }
 
         public int GetLastWeekOfFb(string fb)
         {
-            var fbStartDate = FeatureBuildDate.featureBuildDates[fb].EndTime;
+            var fbStartDate = FeatureBuildDate.FeatureBuildDates[fb].EndTime;
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(fbStartDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
         }
 
         public bool IsDateAfterFb(DateTime date, string fb)
         {
-            return FeatureBuildDate.featureBuildDates[fb].EndTime < date;
+            return FeatureBuildDate.FeatureBuildDates[fb].EndTime < date;
         }
 
         public bool IsFbAfterDate(string fb, DateTime date)
         {
-            return FeatureBuildDate.featureBuildDates[fb].EndTime > date;
+            return FeatureBuildDate.FeatureBuildDates[fb].EndTime > date;
         }
 
         public String PickEarlierValidFb(String left, String right)
@@ -229,7 +229,7 @@ namespace FusionPrePlaner.Algorithm
 
         public virtual int DaysUntilFbStart(DateTime currentDate, string targetFb)
         {
-            return (FeatureBuildDate.featureBuildDates[targetFb].StartTime - currentDate).Days;
+            return (FeatureBuildDate.FeatureBuildDates[targetFb].StartTime - currentDate).Days;
         }
 
         public virtual string GetParkedFbForThisYear()
@@ -296,7 +296,7 @@ namespace FusionPrePlaner.Algorithm
         {
             
             
-            if (!FeatureBuildDate.featureBuildDates.ContainsKey(featureBuild))
+            if (!FeatureBuildDate.FeatureBuildDates.ContainsKey(featureBuild))
                 throw new Exception("Feature build: " + featureBuild + " is not specified in featurebuilddates");
             
         }
