@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\Alphabet.cs" />
     <Compile Include="Algorithm\FeatureBuildChecker.cs" />
     <Compile Include="Algorithm\FeatureBuildDate.cs" />
     <Compile Include="Config.cs" />
