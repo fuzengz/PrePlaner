@@ -337,8 +337,6 @@ namespace FusionPrePlaner
                 return !fbChecker.isEarlier(fb, efsFb);
                 */
 
-
-
             return true;
         }
         private bool FitsInBounds(DataRow r, string fb)
@@ -384,9 +382,13 @@ namespace FusionPrePlaner
         {
 
             string temp = row["Key"].ToString();
-            DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Target FB"] = fb;
-            DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Status"] = "Scheduled";
-            DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0]["Assigned"] = "M";
+            var tablerow = DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0];
+            if (tablerow["Target FB"].ToString() != fb || tablerow["Status"].ToString() != "Scheduled")
+            {
+                tablerow["Target FB"] = fb;
+                tablerow["Status"] = "Scheduled";
+                tablerow["Assigned"] = "M";
+            }
 
             list.Remove(row);
         }
@@ -452,8 +454,7 @@ namespace FusionPrePlaner
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
             GetAllIssues();
-            //PrePlan preplan = new PrePlan(DT_AvailIssues, DT_UntouchableIssues, new FeatureBuildChecker(), DT_FB,DT_REL);
-            //preplan.Process(Sto.Name);
+           
             Process(Sto.Name);
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
@@ -508,7 +509,7 @@ namespace FusionPrePlaner
                         DataTable dt = null;
                         if(newTabObj.IssueType == "Epic")
                         {
-                            dt = newTabObj.Status == "Open" || (newTabObj.Status == "Scheduled" && string.IsNullOrEmpty(newTabObj.TargetFB))? DT_AvailIssues : DT_UntouchableIssues;
+                            dt = (newTabObj.Status == "Open" || newTabObj.Status == "Scheduled" )? DT_AvailIssues : DT_UntouchableIssues;
                         }
                         else if(newTabObj.IssueType == "Competence Area")
                         {
