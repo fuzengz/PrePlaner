@@ -13,7 +13,7 @@ namespace FusionPrePlaner.Algorithm
         {
             if (string.IsNullOrEmpty(featureBuild))
                 return false;
-            return Regex.IsMatch(featureBuild, @"^fb\d{2}[.](0[1-9]|1[0-2])$");
+            return FeatureBuildDate.FeatureBuildDates.ContainsKey(featureBuild);
         }
 
         public bool isParked(String featureBuild)

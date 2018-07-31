@@ -19,13 +19,13 @@ namespace FusionPrePlaner
 
         public static Logger logger = LogManager.GetLogger("PrePlan");
 
-        private static List<PrePlanner> _prePlannerList ;
+        private static List<PrePlanner> _prePlannerList;
 
         public static List<PrePlanner> PrePlannerList
         {
             get
             {
-                if(_prePlannerList == null)
+                if (_prePlannerList == null)
                 {
                     _prePlannerList = new List<PrePlanner>();
                     foreach (var sto in ScrumTeamOwner.STO_FULL_LIST)
@@ -34,17 +34,17 @@ namespace FusionPrePlaner
                         _prePlannerList.Add(new PrePlanner(sto));
                     }
                 }
-                
+
                 return _prePlannerList;
             }
         }
 
-        public static PrePlanner GetPrePlannerFromTeamCode(string code )
+        public static PrePlanner GetPrePlannerFromTeamCode(string code)
         {
-            return  PrePlannerList.Where<PrePlanner>(planner => planner.Sto.Code == code).ToList()[0];
-           
+            return PrePlannerList.Where<PrePlanner>(planner => planner.Sto.Code == code).ToList()[0];
+
         }
-            
+
 
 
         private ScrumTeamOwner Sto;
@@ -53,12 +53,12 @@ namespace FusionPrePlaner
         {
             get
             {
-                if(_sto_allIssues == null)
+                if (_sto_allIssues == null)
                 {
                     _sto_allIssues = new DataTable("Issues");
                     _sto_allIssues.Columns.Add(new DataColumn("Key", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Item ID", typeof(string)));
-                    _sto_allIssues.Columns.Add(new DataColumn("FP", typeof(string)));                 
+                    _sto_allIssues.Columns.Add(new DataColumn("FP", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Priority", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Type", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("STO", typeof(string)));
@@ -72,7 +72,7 @@ namespace FusionPrePlaner
                     _sto_allIssues.Columns.Add(new DataColumn("Ori Eff", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Rem Eff", typeof(string)));
                     _sto_allIssues.Columns.Add(new DataColumn("Parent", typeof(string)));
-                   
+
                 }
                 return _sto_allIssues;
             }
@@ -147,7 +147,7 @@ namespace FusionPrePlaner
                 _dtRel = value;
             }
         }
-       
+
 
 
 
@@ -162,8 +162,8 @@ namespace FusionPrePlaner
             DT_REL = FeatureBuild.FormatDataTableRelease(dt_xls_dates);
             DT_FB = FeatureBuild.MergeDataTable(dt_dates, dt_cap);
         }
-     
-        
+
+
 
         public PrePlanner(ScrumTeamOwner sto)
         {
@@ -174,19 +174,22 @@ namespace FusionPrePlaner
         public void AsyncProcessSTO()
         {
             ProcessSTO_delegate dele = new ProcessSTO_delegate(ProcessSTO);
-            var res = dele.BeginInvoke(null, null);        
+            var res = dele.BeginInvoke(null, null);
         }
 
-        
+
         public void ProcessSTO()
         {
-            if(Sto.Selected == true && Sto.Run_Stat == STO_RUN_STAT.TO_RUN)
+            // if(Sto.Selected == true && Sto.Run_Stat == STO_RUN_STAT.TO_RUN)
+            if (Sto.Selected == true && Sto.Str_Run_Stat == "Run")
             {
-                Sto.Run_Stat = STO_RUN_STAT.RUNNING;
+                // Sto.Run_Stat = STO_RUN_STAT.RUNNING;
+                Sto.Str_Run_Stat = "Running";
                 Program.fmMainWindow.RefreshUIDgvSTO();
-                
+
                 ExecuteAlgorithm();
-                Sto.Run_Stat = STO_RUN_STAT.TO_RUN;
+                // Sto.Run_Stat = STO_RUN_STAT.TO_RUN;
+                Sto.Str_Run_Stat = "Run";
                 Program.fmMainWindow.RefreshUIDgvSTO();
             }
 
@@ -317,30 +320,212 @@ namespace FusionPrePlaner
         {
             return FitsInBounds(r, fb) && MeetsEtInboundDependency(r, fb) && MeetsSeEfsInboundDependency(r, fb);
         }
-        private bool MeetsEtInboundDependency(DataRow row, string fb)
+        private bool MeetsEtInboundDependency(DataRow r, string fb)
         {
-            /*
-            if (row.FeatureType.IsEt && row.Status.IsScInternal && row.HasParent(backlog))
+            if (!r["Item ID"].ToString().ToLower().Contains("sc test"))
             {
-                var devSiblings = row.Parent(backlog).Children(backlog).Where(item => item.Status.IsScInternal && !item.FeatureType.IsEt && fbChecker.isValid(item[Names.Development.TargetFb].Value));
-                return devSiblings.All(item => fbChecker.isEarlier(item[Names.Development.TargetFb].Value, fb));
+                return true;
             }
-            */
+            var parentKey = r["Parent"].ToString();
+            var entityRow = GetParentIssue_until_type(parentKey, "Entity Item");
+            if (entityRow == null) return true;
+
+
+            var jobj = JObject.Parse(entityRow["JOBJECT"].ToString());
+            if (jobj == null)
+            {
+                return true;
+            }
+            //根据当前entityRow的JOBJECT，获得childs， 把outwards找出来，
+            var ilks = jobj.SelectToken("$.issues[?(@.key == '" + entityRow["Key"] + "')]")["fields"]["issuelinks"];
+
+            string childKey = null;
+            foreach (var ilk in ilks)
+            {
+                try
+                {
+                    childKey = ilk["outwardIssue"]["key"].ToString();
+                    if (ilk["outwardIssue"]["fields"]["issuetype"]["name"].ToString() == "Competence Area"
+                        && (ilk["outwardIssue"]["fields"]["status"]["name"].ToString() == "Open" || ilk["outwardIssue"]["fields"]["status"]["name"].ToString() == "Scheduled" || ilk["outwardIssue"]["fields"]["status"]["name"].ToString() == "In Progress") 
+                        )
+                    {
+                        var devCARows = Table_Issue_Lookup.Select("Key='" + childKey + "'");
+
+                        var devCARow = devCARows.Length > 0 ? devCARows[0] : GetIssue_Row_Bykey(childKey);  //search a the issue
+                        if (devCARow["Item ID"].ToString().ToLower().Contains("efs") || devCARow["Item ID"].ToString().ToLower().Contains("sc test"))
+                        {
+                            continue;
+                        }
+                        else //all other Dev CA
+                        {
+                            //get the Dev CA's children
+                            jobj = JObject.Parse(devCARow["JOBJECT"].ToString());
+                            if (jobj == null)
+                            {
+                                return true;
+                            }
+
+                            var devEntities = jobj.SelectToken("$.issues[?(@.key == '" + devCARow["Key"] + "')]")["fields"]["issuelinks"];
+                            string childDevEntityKey = null;
+                            foreach (var devEntity in devEntities)
+                            {
+                                try
+                                {
+                                    childDevEntityKey = devEntities["outwardIssue"]["key"].ToString();
+                                    if (devEntity["outwardIssue"]["fields"]["issuetype"]["name"].ToString() == "Epic"
+                                       && (devEntity["outwardIssue"]["fields"]["status"]["name"].ToString() == "Open" || devEntity["outwardIssue"]["fields"]["status"]["name"].ToString() == "Scheduled" || devEntity["outwardIssue"]["fields"]["status"]["name"].ToString() == "In Progress") 
+                                       )
+                                    {
+                                        var childDevEpicRows = Table_Issue_Lookup.Select("Key='" + childDevEntityKey + "'");
+                                        var childDevEpicRow = childDevEpicRows.Length > 0 ? childDevEpicRows[0] : GetIssue_Row_Bykey(childDevEntityKey);  //search a the issue
+                                        var devEpicTargetFB = childDevEpicRow["Target FB"].ToString();
+
+                                        if (fbChecker.isValid(devEpicTargetFB) && !fbChecker.isEarlier(devEpicTargetFB, fb)) //any dev later than current fb
+                                        {
+                                            return false;
+                                        }
+
+                                    }
+
+                                }
+                                catch
+                                {
+                                    continue;
+                                }
+
+                            }
+                        }
+                        var devCATargetFB = devCARow["Target FB"].ToString();
+                        if (fbChecker.isValid(devCATargetFB) && !fbChecker.isEarlier(devCATargetFB, fb)) //any dev later than current fb
+                        {
+                            return false;
+                        }
+
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+
+
             return true;
         }
         private bool MeetsSeEfsInboundDependency(DataRow r, string fb)
         {
-            /*
-            var efsFb = r[Names.SePlanning.FB_FZMEfsFBexit].Value;
+            if (r["Item ID"].ToString().ToLower().Contains("efs") || r["Item ID"].ToString().ToLower().Contains("sc test"))
+            {
+                return true;
+            }
+            var parentKey = r["Parent"].ToString();
+            var entityRow = GetParentIssue_until_type(parentKey, "Entity Item");
+            if (entityRow == null) return true;
 
-            if (fbChecker.isValid(efsFb))
-                return !fbChecker.isEarlier(fb, efsFb);
-                */
+            
+            var jobj = JObject.Parse(entityRow["JOBJECT"].ToString()); 
+            if(jobj == null)
+            {
+                return true;
+            }
+            //根据当前entityRow的JOBJECT，获得childs， 把outwards找出来，
+            var ilks = jobj.SelectToken("$.issues[?(@.key == '" + entityRow["Key"] + "')]")["fields"]["issuelinks"];
+
+            string childKey = null;
+            foreach (var ilk in ilks)
+            {
+                try
+                {
+                    childKey = ilk["outwardIssue"]["key"].ToString();
+                    if (ilk["outwardIssue"]["fields"]["issuetype"]["name"].ToString() == "Competence Area"
+                        && (ilk["outwardIssue"]["fields"]["status"]["name"].ToString() == "Open" || ilk["outwardIssue"]["fields"]["status"]["name"].ToString() == "Scheduled" || ilk["outwardIssue"]["fields"]["status"]["name"].ToString() == "In Progress")
+                        )
+                    {
+                        var efsCARows = Table_Issue_Lookup.Select("Key='" + childKey + "'");
+
+                        var efsCARow = efsCARows.Length > 0 ? efsCARows[0] : GetIssue_Row_Bykey(childKey);  //search a the issue
+
+                        if (efsCARow["Item ID"].ToString().ToLower().Contains("efs"))
+                        {
+                            jobj = JObject.Parse(efsCARow["JOBJECT"].ToString());
+                            if (jobj == null)
+                            {
+                                return true;
+                            }
+
+                            var efsEntities = jobj.SelectToken("$.issues[?(@.key == '" + efsCARow["Key"] + "')]")["fields"]["issuelinks"];
+                            string childEfsEntityKey = null;
+                            foreach (var efsEntity in efsEntities)
+                            {
+                                try
+                                {
+                                    childEfsEntityKey = efsEntities["outwardIssue"]["key"].ToString();
+                                    if (efsEntity["outwardIssue"]["fields"]["issuetype"]["name"].ToString() == "Epic"
+                                       && (efsEntity["outwardIssue"]["fields"]["status"]["name"].ToString() == "Open" || efsEntity["outwardIssue"]["fields"]["status"]["name"].ToString() == "Scheduled" || efsEntity["outwardIssue"]["fields"]["status"]["name"].ToString() == "In Progress")
+                                       )
+                                    {
+                                        var childEfsEpicRows = Table_Issue_Lookup.Select("Key='" + childEfsEntityKey + "'");
+                                        var childEfsEpicRow = childEfsEpicRows.Length > 0 ? childEfsEpicRows[0] : GetIssue_Row_Bykey(childEfsEntityKey);  //search a the issue
+                                        var efsEpicTargetFB = childEfsEpicRow["Target FB"].ToString();
+
+                                        if (fbChecker.isValid(efsEpicTargetFB) && !fbChecker.isEarlier(efsEpicTargetFB, fb)) //any dev later than current fb
+                                        {
+                                            return false;
+                                        }
+
+                                    }
+
+                                }
+                                catch
+                                {
+                                    continue;
+                                }
+
+                            }
+                            //  var efsFb = row["Target FB"].ToString();
+                            var efsCAEndFb = efsCARow["End FB"].ToString();   //Open point: End FB
+                            var efsCATargetFb = efsCARow["Target FB"].ToString();   //Open point: End FB
+                            if (fbChecker.isValid(efsCATargetFb) && !fbChecker.isEarlier(fb, efsCATargetFb))
+                                return false;
+                            if (fbChecker.isValid(efsCAEndFb) && !fbChecker.isEarlier(fb, efsCAEndFb))
+                                return false;
+                        }
+
+                    }
+
+                }
+                catch
+                {
+                    continue;
+                }
+            }
 
             return true;
         }
+        public DataRow[] Get_Relevant_CA(DataRow epicRow, string filter)
+        {
+            var EntityRow = GetParentIssue_until_type(epicRow["Parent"].ToString(), "Entity Item");
+            var jobj = (JObject)EntityRow["JOBJECT"];
+            var ilks = jobj.SelectToken("$.issues[?(@.key == '" + EntityRow["Key"] + "')]")["fields"]["issuelinks"];
+            string childKey = null;
+            foreach (var ilk in ilks)
+            {
+                try
+                {
+                    childKey = ilk["outwardIssue"]["key"].ToString();
+                    break;
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            return null;
+
+        }
         private bool FitsInBounds(DataRow r, string fb)
         {
+            /*
             bool isTooEarly = false;
             bool isTooLate = false;
 
@@ -362,6 +547,8 @@ namespace FusionPrePlaner
             }
 
             return !isTooEarly && !isTooLate;
+            */
+            return true; //Currently not take into account the lower and upper bound!
         }
 
         private void PackFb(List<DataRow> list, string team, double frame, DataRow first)
@@ -381,13 +568,21 @@ namespace FusionPrePlaner
         private void AssignFb(List<DataRow> list, string team, DataRow row, double frame)
         {
 
-            string temp = row["Key"].ToString();
+            // string temp = row["Key"].ToString();
             var tablerow = DT_AvailIssues.Select("[Item ID]='" + row["Item ID"].ToString() + "'")[0];
-            if (tablerow["Target FB"].ToString() != fb || tablerow["Status"].ToString() != "Scheduled")
+            try
             {
-                tablerow["Target FB"] = fb;
-                tablerow["Status"] = "Scheduled";
-                tablerow["Assigned"] = "M";
+               
+                if (tablerow["Target FB"].ToString() != fb || tablerow["Status"].ToString() != "Scheduled")
+                {
+                    tablerow["Target FB"] = fb;
+                    tablerow["Status"] = "Scheduled";
+                    tablerow["Assigned"] = "M";
+                }
+            }
+            catch
+            {
+
             }
 
             list.Remove(row);
@@ -417,7 +612,8 @@ namespace FusionPrePlaner
 
             List<DataRow> list = PrepareItemList(team);
 
-
+            var totalNum = list == null ? 0 : list.Count;
+            var curNum = 0;
             while (list != null && list.Count > 0 && HasCapacityEntry(team, fb))
             {
                 double frame = GetAvaliableFrame(team, fb, GetTeamCapacity(team, fb));
@@ -428,6 +624,13 @@ namespace FusionPrePlaner
                     SplitIfNeededAndFillTheFrame(list, frame, team);
                 else
                     fb = fbChecker.GetNextFb(fb);
+
+                curNum++;
+                Sto.Str_Run_Stat = curNum + "/" + totalNum;
+
+                Program.fmMainWindow.RefreshUISTO_Progress();
+                Program.fmMainWindow.RefreshUIDgvAvailIssues();
+               
 
             }
 
@@ -453,9 +656,13 @@ namespace FusionPrePlaner
 
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
-            GetAllIssues();
-           
-            Process(Sto.Name);
+
+            int issueCnt = GetAllIssues();
+            if(issueCnt>0)
+            {
+                Process(Sto.Name);
+            }
+            
             Program.fmMainWindow.RefreshUIDgvAvailIssues();
             Program.fmMainWindow.RefreshUIDgvUntouchableIssues();
 
@@ -465,13 +672,14 @@ namespace FusionPrePlaner
 
         
         JObject JOBJ_JSON = null;
-        public  void GetAllIssues()
+        public  int GetAllIssues()
         {
        
             JOBJ_JSON = null;
             STO_AllIssues.Rows.Clear();
             DT_AvailIssues.Rows.Clear();
             DT_UntouchableIssues.Rows.Clear();
+            Table_Issue_Lookup.Rows.Clear();
             string strFilter = string.Format("search?jql=cf[29790]={0}", Sto.Code);
             string strFields = "&fields=issuelinks,issuetype,customfield_37381,customfield_38702,customfield_38719,customfield_29790,status,customfield_38751,customfield_38694,customfield_38693,timetracking,customfield_38725";
             string strOrderby = "+order+by+cf[38719]";
@@ -487,7 +695,16 @@ namespace FusionPrePlaner
                 string json = RestAPIAccess.ExecuteRestAPI_CURL(Config.Instance.UserName, Config.Instance.Password, url, "GET", cmd);
                 try
                 {
-                    RootObject rb = JsonConvert.DeserializeObject<RootObject>(json);
+                    RootObject rb;
+                    try
+                    {
+                        rb = JsonConvert.DeserializeObject<RootObject>(json);
+                    }
+                    catch(Newtonsoft.Json.JsonReaderException exp)
+                    {
+                        logger.Error("exception:" + exp.Message + "---" + json);
+                        return -1;
+                    }
                     JOBJ_JSON = JObject.Parse(json);
                    
                     
@@ -495,45 +712,65 @@ namespace FusionPrePlaner
                     if (rb.issues == null)
                     {
                         logger.Error("Data error:" + json);
-                        return;
+                        return 0;
                     }
                     foreach (Issues issue in rb.issues)
                     {
                         TableObject newTabObj = new TableObject(issue);
-                        newTabObj.Parent = GetParentIssue(issue.key, JOBJ_JSON);
+                        newTabObj.Parent = GetParentIssue_Key(issue.key, JOBJ_JSON);
 
 
                         STO_AllIssues.Rows.Add(newTabObj.Key, newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority,newTabObj.IssueType, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
                            newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort, newTabObj.Parent);
 
+                        
+
+
                         DataTable dt = null;
                         if(newTabObj.IssueType == "Epic")
                         {
-                            dt = (newTabObj.Status == "Open" || newTabObj.Status == "Scheduled" )? DT_AvailIssues : DT_UntouchableIssues;
+                            if (newTabObj.Status == "Open" || (newTabObj.Status == "Scheduled" /* && string.IsNullOrEmpty(newTabObj.TargetFB) */))
+                            {
+                                dt = DT_AvailIssues;
+                            }
+                            else if (/*newTabObj.Status == "Scheduled" || */newTabObj.Status == "In Progress")
+                            {
+                                dt = DT_UntouchableIssues;
+                            }
+                                
                         }
                         else if(newTabObj.IssueType == "Competence Area")
                         {
                             dt = DT_CA;
                         }
 
-
-                        dt.Rows.Add(newTabObj.Key,newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.IssueType, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
+                        if(dt!=null)
+                        {
+                            dt.Rows.Add(newTabObj.Key, newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.IssueType, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
                            newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort, newTabObj.Parent);
+                        }
+                        
                     }
                     totalIssueNum = Convert.ToInt32(rb.total);
                     curIssueNum += rb.issues.Count;
+                    
                 }
                 catch(SystemException exp)
                 {
                     logger.Error("exception:" + exp.Message +"---" + json);
-                    return;
+                    Program.fmMainWindow.RefreshStatus("REST API Error");
+                    return -1;
                 }   
                
             }
-            
+            Program.fmMainWindow.RefreshStatus("REST API OK");
+            return totalIssueNum;
+
+
         }
+        #region Functions for Drill up Drill down
         
-        private string GetParentIssue(string key, JObject jobj)
+        private string GetParentIssue_Key(string key, JObject jobj)
         {
             if (jobj == null) return null;
 
@@ -553,32 +790,36 @@ namespace FusionPrePlaner
             }
             return parentkey;
         }
+        
 
-        private DataTable _issue_lookup_table;
-        public DataTable Issue_Lookup_Table
+        private DataTable _table_issue_lookup;
+        public DataTable Table_Issue_Lookup
         {
             get
             {
-                if (_issue_lookup_table == null)
+                if (_table_issue_lookup == null)
                 {
-                    _issue_lookup_table = STO_AllIssues.Clone();
-                    _issue_lookup_table.Columns.Add("JOBJECT");
+                    _table_issue_lookup = STO_AllIssues.Clone();
+                    _table_issue_lookup.Columns.Add("JOBJECT");
 
                 }
-                return _issue_lookup_table;
+                return _table_issue_lookup;
             }
         }
+         
 
-        private DataRow GetParentIssue(string parentkey)
+        private DataRow GetIssue_Row_Bykey(string key)
         {
-            var rows = Issue_Lookup_Table.Select("Key='" + parentkey + "'");
+            if (string.IsNullOrEmpty(key))
+                return null;
+            var rows = Table_Issue_Lookup.Select("Key='" + key + "'");
             if (rows.Count() > 0)
             {
                 return rows[0];
             }
             else //using Rest API get 
             {
-                string strFilter = string.Format("search?jql=Key={0}", parentkey);
+                string strFilter = string.Format("search?jql=Key={0}", key);
                 string strFields = "&fields=issuelinks,issuetype,customfield_37381,customfield_38702,customfield_38719,customfield_29790,status,customfield_38751,customfield_38694,customfield_38693,timetracking,customfield_38725";
                 string strOrderby = "+order+by+cf[38719]";
                 string strSearch = strFilter + strOrderby + strFields;
@@ -599,13 +840,13 @@ namespace FusionPrePlaner
                     foreach (Issues issue in rb.issues)
                     {
                         TableObject newTabObj = new TableObject(issue);
-                        newTabObj.Parent = GetParentIssue(issue.key, JOBJ_JSON);
+                        newTabObj.Parent = GetParentIssue_Key(issue.key, JOBJ_JSON);
                         if(string.IsNullOrEmpty(newTabObj.Parent))
                         {
                             return null;
                         }
                         
-                        return Issue_Lookup_Table.Rows.Add(newTabObj.Key, newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.IssueType, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
+                        return Table_Issue_Lookup.Rows.Add(newTabObj.Key, newTabObj.ItemID, newTabObj.FP, newTabObj.UnifiedPriority, newTabObj.IssueType, newTabObj.ScrumTeamOwner, newTabObj.LeadRelease,
                            newTabObj.Status, newTabObj.StartFB, newTabObj.EndFB, newTabObj.TargetFB, newTabObj.OriginalEffort, newTabObj.RemWorkEffort, newTabObj.Parent,JOBJ_JSON);
                     }
                 }
@@ -619,38 +860,24 @@ namespace FusionPrePlaner
             
         }
 
+        
         private DataRow GetParentIssue_until_type(string parentkey, string issueType)  //Entity Item,  Competence Area ,  Epic
         {
-            DataRow row = null;
-            do
+            
+
+            for (DataRow row = null ; !string.IsNullOrEmpty(parentkey) ; parentkey = row["parent"].ToString())
             {
-                row = GetParentIssue(parentkey);
+                row = GetIssue_Row_Bykey(parentkey);
+                if(row == null) return null;          
+                if (row["Type"].ToString() == issueType) return row;
+                
 
-            } while (row != null || row["IssueType"].ToString() != issueType);
-
-            return row;
-        }
-
-        public DataRow[] Get_Relevant_CA(DataRow epicRow, string filter)
-        {
-            var EntityRow = GetParentIssue_until_type(epicRow["Parent"].ToString(), "Entity Item");
-            var jobj = (JObject)EntityRow["JOBJECT"];
-            var ilks = jobj.SelectToken("$.issues[?(@.key == '" + EntityRow["Key"] + "')]")["fields"]["issuelinks"];
-            string childKey = null;
-            foreach (var ilk in ilks)
-            {
-                try
-                {
-                    childKey = ilk["outwardIssue"]["key"].ToString();
-                    break;
-                }
-                catch
-                {
-                    continue;
-                }
             }
             return null;
 
         }
+
+        
+        #endregion
     }
 }

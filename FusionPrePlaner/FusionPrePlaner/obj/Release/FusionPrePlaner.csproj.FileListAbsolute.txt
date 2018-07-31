@@ -1,0 +1,25 @@
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.csprojAssemblyReference.cache
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.FM_Main.resources
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.Properties.Resources.resources
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.csproj.GenerateResource.cache
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.csproj.CoreCompileInputs.cache
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\curl\CURL.EXE
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\curl\LIBCURL.DLL
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\curl\LIBCURL.EXE
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\curl\LIBCURL.LIB
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\FZM FBP tool.xlsb
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\NLog.config
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\FusionPrePlaner.exe.config
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\FusionPrePlaner.exe
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\FusionPrePlaner.pdb
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\EntityFramework.dll
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\EntityFramework.SqlServer.dll
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\Newtonsoft.Json.dll
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\NLog.dll
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\EntityFramework.xml
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\EntityFramework.SqlServer.xml
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\Newtonsoft.Json.xml
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Release\NLog.xml
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.csproj.CopyComplete
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.exe
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\obj\Release\FusionPrePlaner.pdb

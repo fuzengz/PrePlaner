@@ -85,3 +85,4 @@ D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.Propertie
 D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.csproj.GenerateResource.Cache
 D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.exe
 D:\PrePlaner\FusionPrePlaner\FusionPrePlaner\obj\Debug\FusionPrePlaner.pdb
+D:\gitrepos\FusionPrePlaner\FusionPrePlaner\bin\Debug\NLog.dll

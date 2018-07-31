@@ -23,7 +23,8 @@ namespace FusionPrePlaner
         public string Squad { get; set; }
         public string Ca { get; set; }
         public bool Selected { get; set; }
-        public STO_RUN_STAT Run_Stat { get; set; }
+        //public STO_RUN_STAT Run_Stat { get; set; }
+        /*
         public string Str_Run_Stat
         {
             get
@@ -39,13 +40,16 @@ namespace FusionPrePlaner
                 }
             }
         }
-        public ScrumTeamOwner(string name, string squad, string ca, bool selected = true, STO_RUN_STAT run_stat = STO_RUN_STAT.TO_RUN)
+        */
+        public string Str_Run_Stat { get; set; }
+        //public ScrumTeamOwner(string name, string squad, string ca, bool selected = true, STO_RUN_STAT run_stat = STO_RUN_STAT.TO_RUN)
+        public ScrumTeamOwner(string name, string squad, string ca, bool selected = true, string runstr = "Run")
         {
             Name = name;
             Squad = squad;
             Ca = ca;
             Selected = selected;
-            Run_Stat = run_stat;
+            Str_Run_Stat = runstr;
             try
             {
                 Code = DicTeamToCode[Name];

@@ -48,9 +48,22 @@ namespace FusionPrePlaner
             this.dgv_STO.Invalidate();
         }
 
-        private BindingSource bsAvail;
-        private BindingSource bsUntouch;
+  
 
+        private delegate void deleBindDataSource(PrePlanner preplanner);
+        private void BindDataSource(PrePlanner preplanner)
+        {      
+            dgv_AvailableIssues.DataSource = preplanner.DT_AvailIssues;
+            dgv_AvailableIssues.Columns["Start FB"].Visible = false;
+            dgv_AvailableIssues.Columns["End FB"].Visible = false;
+            dgv_AvailableIssues.Columns["Ori Eff"].Visible = false;
+            
+          
+            dgv_UntouchableIssues.DataSource = preplanner.DT_UntouchableIssues;
+            dgv_UntouchableIssues.Columns["Start FB"].Visible = false;
+            dgv_UntouchableIssues.Columns["End FB"].Visible = false;
+            dgv_UntouchableIssues.Columns["Ori Eff"].Visible = false;
+        }
         
         private void RefreshDgvSTOIssues()
         {
@@ -59,17 +72,10 @@ namespace FusionPrePlaner
                 var obj = dgv_STO.SelectedRows[0].Cells["Code"].Value;
                 string teamcode = obj == null ? null : obj.ToString();
                 var preplanner = PrePlanner.GetPrePlannerFromTeamCode(teamcode);
-              //  preplanner.get_FB(DT_FB);
-             //   preplanner.get_REL(DT_Rel);
+         
                 if (preplanner != null)
                 {
-                    bsAvail = new BindingSource();
-                    bsAvail.DataSource = preplanner.DT_AvailIssues;                
-                    dgv_AvailableIssues.DataSource = bsAvail;
-                    bsUntouch = new BindingSource();
-                    bsUntouch.DataSource = preplanner.DT_UntouchableIssues;
-                    dgv_UntouchableIssues.DataSource = bsUntouch;
-
+                    this.Invoke(new deleBindDataSource(BindDataSource), preplanner);               
                 }
 
                 obj = dgv_STO.SelectedRows[0].Cells["col_STO"].Value;
@@ -97,6 +103,19 @@ namespace FusionPrePlaner
                 
             }
 
+        }
+
+        public delegate void RefreshStatusDele(string strStatus);
+        public void RefreshStatus(string strStatus)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new RefreshStatusDele(RefreshStatus), strStatus);
+            }
+            else
+            {
+                this.statusStrip1.Text = strStatus;
+            }
         }
 
         public delegate void RefreshUIDgvSTODele();
@@ -129,8 +148,11 @@ namespace FusionPrePlaner
                 try
                 {
                    
-                    CurrencyManager cm = bsAvail.CurrencyManager;
+                    CurrencyManager cm = dgv_AvailableIssues.BindingContext[dgv_AvailableIssues.DataSource] as CurrencyManager; //bsAvail.CurrencyManager;
                     cm.Refresh();
+
+                    
+                  
                 }
                 catch
                 {
@@ -141,6 +163,35 @@ namespace FusionPrePlaner
           
 
         }
+
+        public delegate void RefreshUISTO_Progress_Dele();
+        public void RefreshUISTO_Progress()
+        {
+
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new RefreshUISTO_Progress_Dele(RefreshUISTO_Progress));
+            }
+            else
+            {
+
+                try
+                {
+
+                    // CurrencyManager cm = dgv_STO.BindingContext[dgv_STO.DataSource] as CurrencyManager; //bsAvail.CurrencyManager;
+                    //cm.Refresh();
+                    dgv_STO.Invalidate();
+                }
+                catch
+                {
+                    //nodo
+                }
+            }
+
+
+
+        }
+        
         public void RefreshUIDgvUntouchableIssues()
         {
 
@@ -154,7 +205,7 @@ namespace FusionPrePlaner
                 try
                 {
                    
-                    CurrencyManager cm = bsUntouch.CurrencyManager;
+                    CurrencyManager cm = dgv_UntouchableIssues.BindingContext[dgv_UntouchableIssues.DataSource] as CurrencyManager;//bsUntouch.CurrencyManager;
                     cm.Refresh();
                 }
                 catch
@@ -172,11 +223,12 @@ namespace FusionPrePlaner
             if (dgv_STO.Columns[e.ColumnIndex].Name == "col_Preplan")
             {
 
-                if ((STO_RUN_STAT)dgv_STO.Rows[e.RowIndex].Cells["col_runstat"].Value == STO_RUN_STAT.RUNNING)
+                if (dgv_STO.Rows[e.RowIndex].Cells["col_Preplan"].Value.ToString() != "Run")
                 {
                     MessageBox.Show("Already Running");
                 }
-                else if ((STO_RUN_STAT)dgv_STO.Rows[e.RowIndex].Cells["col_runstat"].Value == STO_RUN_STAT.TO_RUN)
+                // else if ((STO_RUN_STAT)dgv_STO.Rows[e.RowIndex].Cells["col_runstat"].Value == STO_RUN_STAT.TO_RUN)
+                else if (dgv_STO.Rows[e.RowIndex].Cells["col_Preplan"].Value.ToString() == "Run")
                 {
                     var sto_name = dgv_STO.Rows[e.RowIndex].Cells["col_STO"].Value.ToString();
                     var sto = ScrumTeamOwner.GetSTO(sto_name);

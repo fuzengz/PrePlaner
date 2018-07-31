@@ -29,13 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tp_main = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgv_STO = new System.Windows.Forms.DataGridView();
+            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_STO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Squad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_CA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Preplan = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCountDown = new System.Windows.Forms.TextBox();
@@ -49,6 +55,8 @@
             this.dgv_AvailableIssues = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_FBList = new System.Windows.Forms.DataGridView();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.dgv_Release = new System.Windows.Forms.DataGridView();
             this.tp_config = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnRestApiConfigCancel = new System.Windows.Forms.Button();
@@ -70,15 +78,6 @@
             this.txtInterval = new System.Windows.Forms.TextBox();
             this.errProviderConfig = new System.Windows.Forms.ErrorProvider(this.components);
             this.timer1Sec = new System.Windows.Forms.Timer(this.components);
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.dgv_Release = new System.Windows.Forms.DataGridView();
-            this.selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_STO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Squad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_CA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Preplan = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.col_runstat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tp_main.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -91,12 +90,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AvailableIssues)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_FBList)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Release)).BeginInit();
             this.tp_config.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Release)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -107,7 +106,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1362, 742);
+            this.tabControl1.Size = new System.Drawing.Size(1672, 850);
             this.tabControl1.TabIndex = 0;
             // 
             // tp_main
@@ -117,16 +116,16 @@
             this.tp_main.Location = new System.Drawing.Point(4, 22);
             this.tp_main.Name = "tp_main";
             this.tp_main.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_main.Size = new System.Drawing.Size(1354, 716);
+            this.tp_main.Size = new System.Drawing.Size(1664, 824);
             this.tp_main.TabIndex = 0;
             this.tp_main.Text = "Main";
             this.tp_main.UseVisualStyleBackColor = true;
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(3, 691);
+            this.statusStrip1.Location = new System.Drawing.Point(3, 799);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1348, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1658, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -134,8 +133,8 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.19355F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.09187F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.73852F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.37602F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.45574F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 1, 1);
@@ -147,10 +146,10 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 313F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 282F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 61F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1348, 710);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1658, 818);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // groupBox1
@@ -161,7 +160,7 @@
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox1, 2);
-            this.groupBox1.Size = new System.Drawing.Size(320, 643);
+            this.groupBox1.Size = new System.Drawing.Size(395, 751);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "STO";
@@ -180,8 +179,7 @@
             this.col_Squad,
             this.col_CA,
             this.Code,
-            this.col_Preplan,
-            this.col_runstat});
+            this.col_Preplan});
             this.dgv_STO.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_STO.Location = new System.Drawing.Point(3, 17);
             this.dgv_STO.MultiSelect = false;
@@ -189,10 +187,54 @@
             this.dgv_STO.RowHeadersVisible = false;
             this.dgv_STO.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgv_STO.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_STO.Size = new System.Drawing.Size(314, 623);
+            this.dgv_STO.Size = new System.Drawing.Size(389, 731);
             this.dgv_STO.TabIndex = 0;
             this.dgv_STO.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_STO_CellContentClick);
             this.dgv_STO.SelectionChanged += new System.EventHandler(this.dgv_STO_SelectionChanged);
+            // 
+            // selected
+            // 
+            this.selected.DataPropertyName = "Selected";
+            this.selected.HeaderText = "";
+            this.selected.Name = "selected";
+            // 
+            // col_STO
+            // 
+            this.col_STO.DataPropertyName = "Name";
+            this.col_STO.HeaderText = "STO";
+            this.col_STO.Name = "col_STO";
+            this.col_STO.ReadOnly = true;
+            // 
+            // col_Squad
+            // 
+            this.col_Squad.DataPropertyName = "Squad";
+            this.col_Squad.HeaderText = "Squad";
+            this.col_Squad.Name = "col_Squad";
+            this.col_Squad.ReadOnly = true;
+            // 
+            // col_CA
+            // 
+            this.col_CA.DataPropertyName = "CA";
+            this.col_CA.HeaderText = "CA";
+            this.col_CA.Name = "col_CA";
+            this.col_CA.ReadOnly = true;
+            // 
+            // Code
+            // 
+            this.Code.DataPropertyName = "Code";
+            this.Code.HeaderText = "Code";
+            this.Code.Name = "Code";
+            this.Code.ReadOnly = true;
+            // 
+            // col_Preplan
+            // 
+            this.col_Preplan.DataPropertyName = "Str_Run_Stat";
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.NullValue = "Run";
+            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle20;
+            this.col_Preplan.HeaderText = "Run";
+            this.col_Preplan.Name = "col_Preplan";
+            this.col_Preplan.ReadOnly = true;
             // 
             // panel1
             // 
@@ -204,9 +246,9 @@
             this.panel1.Controls.Add(this.btnRunAll);
             this.panel1.Controls.Add(this.txtNextRunDt);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 652);
+            this.panel1.Location = new System.Drawing.Point(3, 760);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1102, 55);
+            this.panel1.Size = new System.Drawing.Size(1346, 55);
             this.panel1.TabIndex = 6;
             // 
             // label4
@@ -270,9 +312,9 @@
             this.groupBox4.Controls.Add(this.dgv_UntouchableIssues);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(329, 339);
+            this.groupBox4.Location = new System.Drawing.Point(404, 478);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(776, 307);
+            this.groupBox4.Size = new System.Drawing.Size(945, 276);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Untouchable ITEMS";
@@ -290,7 +332,7 @@
             this.dgv_UntouchableIssues.ReadOnly = true;
             this.dgv_UntouchableIssues.RowHeadersVisible = false;
             this.dgv_UntouchableIssues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_UntouchableIssues.Size = new System.Drawing.Size(770, 287);
+            this.dgv_UntouchableIssues.Size = new System.Drawing.Size(939, 256);
             this.dgv_UntouchableIssues.TabIndex = 1;
             // 
             // groupBox2
@@ -298,9 +340,9 @@
             this.groupBox2.Controls.Add(this.dgv_AvailableIssues);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(329, 3);
+            this.groupBox2.Location = new System.Drawing.Point(404, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 330);
+            this.groupBox2.Size = new System.Drawing.Size(945, 469);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Available ITEMS";
@@ -318,7 +360,7 @@
             this.dgv_AvailableIssues.ReadOnly = true;
             this.dgv_AvailableIssues.RowHeadersVisible = false;
             this.dgv_AvailableIssues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_AvailableIssues.Size = new System.Drawing.Size(770, 310);
+            this.dgv_AvailableIssues.Size = new System.Drawing.Size(939, 449);
             this.dgv_AvailableIssues.TabIndex = 0;
             // 
             // groupBox3
@@ -326,9 +368,9 @@
             this.groupBox3.Controls.Add(this.dgv_FBList);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(1111, 3);
+            this.groupBox3.Location = new System.Drawing.Point(1355, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(234, 330);
+            this.groupBox3.Size = new System.Drawing.Size(300, 469);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Feature Builds";
@@ -337,7 +379,7 @@
             // 
             this.dgv_FBList.AllowUserToAddRows = false;
             this.dgv_FBList.AllowUserToDeleteRows = false;
-            this.dgv_FBList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgv_FBList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_FBList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_FBList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_FBList.Location = new System.Drawing.Point(3, 17);
@@ -345,8 +387,37 @@
             this.dgv_FBList.Name = "dgv_FBList";
             this.dgv_FBList.ReadOnly = true;
             this.dgv_FBList.RowHeadersVisible = false;
-            this.dgv_FBList.Size = new System.Drawing.Size(228, 310);
+            this.dgv_FBList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgv_FBList.Size = new System.Drawing.Size(294, 449);
             this.dgv_FBList.TabIndex = 0;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.dgv_Release);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Location = new System.Drawing.Point(1355, 478);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(300, 276);
+            this.groupBox7.TabIndex = 7;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Release";
+            // 
+            // dgv_Release
+            // 
+            this.dgv_Release.AllowUserToAddRows = false;
+            this.dgv_Release.AllowUserToDeleteRows = false;
+            this.dgv_Release.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_Release.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgv_Release.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Release.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_Release.Location = new System.Drawing.Point(3, 16);
+            this.dgv_Release.MultiSelect = false;
+            this.dgv_Release.Name = "dgv_Release";
+            this.dgv_Release.ReadOnly = true;
+            this.dgv_Release.RowHeadersVisible = false;
+            this.dgv_Release.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgv_Release.Size = new System.Drawing.Size(294, 257);
+            this.dgv_Release.TabIndex = 1;
             // 
             // tp_config
             // 
@@ -561,89 +632,11 @@
             this.timer1Sec.Interval = 1000;
             this.timer1Sec.Tick += new System.EventHandler(this.timer1Sec_Tick);
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.dgv_Release);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.Location = new System.Drawing.Point(1111, 339);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(234, 307);
-            this.groupBox7.TabIndex = 7;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Release";
-            // 
-            // dgv_Release
-            // 
-            this.dgv_Release.AllowUserToAddRows = false;
-            this.dgv_Release.AllowUserToDeleteRows = false;
-            this.dgv_Release.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dgv_Release.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Release.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_Release.Location = new System.Drawing.Point(3, 16);
-            this.dgv_Release.MultiSelect = false;
-            this.dgv_Release.Name = "dgv_Release";
-            this.dgv_Release.ReadOnly = true;
-            this.dgv_Release.RowHeadersVisible = false;
-            this.dgv_Release.Size = new System.Drawing.Size(228, 288);
-            this.dgv_Release.TabIndex = 1;
-            // 
-            // selected
-            // 
-            this.selected.DataPropertyName = "Selected";
-            this.selected.HeaderText = "";
-            this.selected.Name = "selected";
-            // 
-            // col_STO
-            // 
-            this.col_STO.DataPropertyName = "Name";
-            this.col_STO.HeaderText = "STO";
-            this.col_STO.Name = "col_STO";
-            this.col_STO.ReadOnly = true;
-            // 
-            // col_Squad
-            // 
-            this.col_Squad.DataPropertyName = "Squad";
-            this.col_Squad.HeaderText = "Squad";
-            this.col_Squad.Name = "col_Squad";
-            this.col_Squad.ReadOnly = true;
-            // 
-            // col_CA
-            // 
-            this.col_CA.DataPropertyName = "CA";
-            this.col_CA.HeaderText = "CA";
-            this.col_CA.Name = "col_CA";
-            this.col_CA.ReadOnly = true;
-            // 
-            // Code
-            // 
-            this.Code.DataPropertyName = "Code";
-            this.Code.HeaderText = "Code";
-            this.Code.Name = "Code";
-            this.Code.ReadOnly = true;
-            // 
-            // col_Preplan
-            // 
-            this.col_Preplan.DataPropertyName = "Str_Run_Stat";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = "Run";
-            this.col_Preplan.DefaultCellStyle = dataGridViewCellStyle1;
-            this.col_Preplan.HeaderText = "Run";
-            this.col_Preplan.Name = "col_Preplan";
-            this.col_Preplan.ReadOnly = true;
-            // 
-            // col_runstat
-            // 
-            this.col_runstat.DataPropertyName = "Run_Stat";
-            this.col_runstat.HeaderText = "Run Stat";
-            this.col_runstat.Name = "col_runstat";
-            this.col_runstat.ReadOnly = true;
-            this.col_runstat.Visible = false;
-            // 
             // FM_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1362, 742);
+            this.ClientSize = new System.Drawing.Size(1672, 850);
             this.Controls.Add(this.tabControl1);
             this.Name = "FM_Main";
             this.Text = "Fusion Pre-Planer";
@@ -662,14 +655,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AvailableIssues)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_FBList)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Release)).EndInit();
             this.tp_config.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviderConfig)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Release)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -724,7 +717,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_CA;
         private System.Windows.Forms.DataGridViewTextBoxColumn Code;
         private System.Windows.Forms.DataGridViewButtonColumn col_Preplan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_runstat;
     }
 }
 
