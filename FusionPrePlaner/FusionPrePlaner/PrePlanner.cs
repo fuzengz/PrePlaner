@@ -440,12 +440,12 @@ namespace FusionPrePlaner
             }
             //splitName += "+" + rest.ToString();
 
-            row["Rem Eff"] = frame.ToString() + "f";
+            row["Rem Eff"] = frame.ToString() + "h";
 
             DataRow newRow = DT_AvailIssues.NewRow();
             newRow.ItemArray = row.ItemArray;
             newRow["Item ID"] = splitName;
-            newRow["Rem Eff"] = rest.ToString() + "r";
+            newRow["Rem Eff"] = rest.ToString() + "h";
             DT_AvailIssues.Rows.Add(newRow);
         }
 
