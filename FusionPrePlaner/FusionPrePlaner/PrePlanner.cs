@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using FusionPrePlaner.Algorithm;
 
-
 namespace FusionPrePlaner
 {
     class PrePlanner
@@ -600,11 +599,48 @@ namespace FusionPrePlaner
             return Convert.ToDouble(eff.Remove(eff.Length - 1, 1));
         }
 
+        //split functions
         private bool CanSplitTheWork(DataRow row)
         {
-            //To be finished...
-            return false;
+            //if(row["Status"].Equals("SC Internal") && !row["STO"].Equals("LTE_EXT_RPTRSW"))
+            return true;
+            //else return false;
         }
+
+        private List<object> getColumnValues(DataTable dt, string columnName)
+        {
+            List<object> ls = new List<object>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                ls.Add(dt.Rows[i][columnName]);
+            }
+            return ls;
+        }
+
+        private void SplitItem(DataRow row, string team, string fb)
+        {
+            double currEffort = getTotalEffort(row, team, fb);
+            int frame = (int)currEffort / 2;
+            int rest = (int)currEffort - frame;
+            char letter = Alphabet.FirstUpperLetter;
+            string teamName = (string)row["Item ID"];
+            string splitName = teamName + letter;
+
+            List<object> teamStr = getColumnValues(DT_AvailIssues, "Item ID");
+            while (teamStr.Contains(splitName))
+            {
+                letter = Alphabet.GetNextAlphabetLetter(letter);
+                splitName = teamName + letter;
+            }
+            //splitName += "+" + rest.ToString();
+            row["Rem Eff"] = frame.ToString() + "f";
+            DataRow newRow = DT_AvailIssues.NewRow();
+            newRow.ItemArray = row.ItemArray;
+            newRow["Item ID"] = splitName;
+            newRow["Rem Eff"] = rest.ToString() + "r";
+            DT_AvailIssues.Rows.Add(newRow);
+        }
+
         public void Process(string team)
         {
 
@@ -644,10 +680,12 @@ namespace FusionPrePlaner
             {
                 if (CanSplitTheWork(first))
                 {
-                    //To be finished...
+                    while (getTotalEffort(first, team, fb) > capacity)
+                        SplitItem(first, team, fb);
                 }
                 PackFb(list, team, frame, first);
             }
+            else Console.WriteLine("ssss");
         }
         private void ExecuteAlgorithm()
         {
